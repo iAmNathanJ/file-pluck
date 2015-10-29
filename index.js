@@ -31,18 +31,25 @@ exports['default'] = function () {
     }
   } : _ref$output;
 
+  var snippets = [];
+  var start = function start(str) {
+    return str.indexOf(opening) + opening.length;
+  };
+  var end = function end(str) {
+    return str.indexOf(closing);
+  };
+
   return {
 
-    countInstances: function countInstances(str) {
-      return str.indexOf(opening) !== -1 && str.indexOf(closing) !== -1;
+    pluckable: function pluckable(str) {
+      // Returns true if both opening and closing delimiters are found
+      return start(str) !== -1 && end(str) !== -1;
     },
 
     pluck: function pluck(str) {
-
-      var start = str.indexOf(opening) + opening.length,
-          end = str.indexOf(closing);
-
-      return str.substring(start, end).trim();
+      if (!this.pluckable(str)) throw new Error('Unpluckable input');
+      // Returns the first pluckable snippet
+      return str.substring(start(str), end(str)).trim();
     },
 
     pluckAll: function pluckAll(str) {},

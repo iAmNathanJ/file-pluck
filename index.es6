@@ -18,18 +18,21 @@ export default function({
 
 } = {}) {
 
+  let snippets = [];
+  let start = (str) => str.indexOf(opening) + opening.length;
+  let end = (str) => str.indexOf(closing);
+
   return {
 
-    countInstances(str) {
-      return str.indexOf(opening) !== -1 && str.indexOf(closing) !== -1;
+    pluckable(str) {
+      // Returns true if both opening and closing delimiters are found
+      return start(str) !== -1 && end(str) !== -1;
     },
 
     pluck(str) {
-      
-      let start = str.indexOf(opening) + opening.length
-        , end   = str.indexOf(closing);
-    
-      return str.substring(start, end).trim();
+      if(!this.pluckable(str)) throw new Error('Unpluckable input');
+      // Returns the first pluckable snippet
+      return str.substring(start(str), end(str)).trim();
     },
 
     pluckAll(str) {
