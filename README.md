@@ -1,5 +1,5 @@
 # File Pluck
-## Pluck contents from files.
+Pluck contents from files.
 
 ---
 
