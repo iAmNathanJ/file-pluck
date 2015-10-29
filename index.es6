@@ -2,28 +2,19 @@ import fs from 'fs';
 
 export default function({
 
-  // input = {
-  //   opening: '/***',
-  //   closing: '***/',
-  //   key: '@',
-  //   value: ':'
-  // },
-  
-  // output = {
-  //   opening: '{',
-  //   closing: '}',
-  //   separator: ',',
-    
-  //   // function to format each key/value pair
-  //   wrap(key, value) {
-  //     return `"${key}": "${value}"`;
-  //   }
-  // }
-
   opening = '/***',
   closing = '***/',
   key = '@',
-  value = ':'
+  value = ':',
+
+  output = {
+    opening: '{',
+    closing: '}',
+    separator: ',',
+    wrap(key, value) {
+      return `"${key}": "${value}"`;
+    }
+  }
 
 } = {}) {
 
