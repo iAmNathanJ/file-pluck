@@ -46,9 +46,6 @@ export default function({
       .then( fileContents => this.pluck(fileContents) )
     }
 
-    // input: input,
-    // output: output,
-
     // build(itemsArray) {
     //   return itemsArray.map((item, i, arr) => {
 
