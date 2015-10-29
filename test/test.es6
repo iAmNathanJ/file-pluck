@@ -1,6 +1,19 @@
 import test from 'tape';
 import pluck from '../';
 
+
+
+test('count instances of pluckable content', t => {
+
+  let plucker = pluck();
+
+  t.equal(plucker.countInstances('/*** ***/'), true);
+
+  t.end();
+});
+
+
+
 test('pluck should be a function', t => {
 
   let plucker = pluck();
