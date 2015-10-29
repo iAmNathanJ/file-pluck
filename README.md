@@ -8,7 +8,7 @@ Pluck contents from files.
 
 
 ### TODO
-[ ]
-[ ]
-[ ]
-[ ]
+- [ ] 
+- [ ] 
+- [ ] 
+- [ ] 
