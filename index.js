@@ -14,43 +14,38 @@ exports['default'] = function () {
   var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
   var _ref$opening = _ref.opening;
-  var
-
-  // input = {
-  //   opening: '/***',
-  //   closing: '***/',
-  //   key: '@',
-  //   value: ':'
-  // },
-
-  // output = {
-  //   opening: '{',
-  //   closing: '}',
-  //   separator: ',',
-
-  //   // function to format each key/value pair
-  //   wrap(key, value) {
-  //     return `"${key}": "${value}"`;
-  //   }
-  // }
-
-  opening = _ref$opening === undefined ? '/***' : _ref$opening;
+  var opening = _ref$opening === undefined ? '/***' : _ref$opening;
   var _ref$closing = _ref.closing;
   var closing = _ref$closing === undefined ? '***/' : _ref$closing;
   var _ref$key = _ref.key;
   var key = _ref$key === undefined ? '@' : _ref$key;
   var _ref$value = _ref.value;
   var value = _ref$value === undefined ? ':' : _ref$value;
+  var _ref$output = _ref.output;
+  var output = _ref$output === undefined ? {
+    opening: '{',
+    closing: '}',
+    separator: ',',
+    wrap: function wrap(key, value) {
+      return '"' + key + '": "' + value + '"';
+    }
+  } : _ref$output;
 
   return {
+
+    countInstances: function countInstances(str) {
+      return str.indexOf(opening) !== -1 && str.indexOf(closing) !== -1;
+    },
 
     pluck: function pluck(str) {
 
       var start = str.indexOf(opening) + opening.length,
-          end = str.indexOf(closing) - closing.length;
+          end = str.indexOf(closing);
 
-      return str.substr(start, end).trim();
+      return str.substring(start, end).trim();
     },
+
+    pluckAll: function pluckAll(str) {},
 
     read: function read(file) {
 
@@ -70,9 +65,6 @@ exports['default'] = function () {
         return _this.pluck(fileContents);
       });
     }
-
-    // input: input,
-    // output: output,
 
     // build(itemsArray) {
     //   return itemsArray.map((item, i, arr) => {

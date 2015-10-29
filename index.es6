@@ -20,12 +20,19 @@ export default function({
 
   return {
 
+    countInstances(str) {
+      return str.indexOf(opening) !== -1 && str.indexOf(closing) !== -1;
+    },
+
     pluck(str) {
       
       let start = str.indexOf(opening) + opening.length
-        , end   = str.indexOf(closing) - closing.length;
+        , end   = str.indexOf(closing);
     
-      return str.substr(start, end).trim();
+      return str.substring(start, end).trim();
+    },
+
+    pluckAll(str) {
     },
     
     read(file) {
