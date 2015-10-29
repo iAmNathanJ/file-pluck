@@ -1,0 +1,14 @@
+/*
+===
+
+@name: Base Style
+@html: <element class="base"></element>
+
+===
+*/
+
+.base {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
