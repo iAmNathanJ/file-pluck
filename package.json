@@ -13,7 +13,8 @@
     "compile-test": "babel test/test.es6 -o test/test.js -s inline",
     "pretest": "npm run compile-module && npm run compile-test",
     "test": "tape test/test.js | node_modules/.bin/tap-spec",
-    "prepublish": "npm run compile-module"
+    "prepublish": "npm run compile-module",
+    "ci": "npm test"
   },
   "author": "Nathan Jacobs",
   "license": "ISC",
