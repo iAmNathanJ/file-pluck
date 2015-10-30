@@ -75,15 +75,7 @@ exports['default'] = function () {
       var _this = this;
 
       return this.read(file).then(function (fileContents) {
-        return _this.pluck(fileContents);
-      });
-    },
-
-    pluckFileAll: function pluckFileAll(file) {
-      var _this2 = this;
-
-      return this.read(file).then(function (fileContents) {
-        return _this2.pluckAll(fileContents);
+        return _this.pluckAll(fileContents);
       });
     }
 

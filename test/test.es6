@@ -94,7 +94,7 @@ test('pluck all snippets from file with custom delimiters', t => {
   });
 
   p.pluckFile(__dirname + '/test-stylesheet2.css')
-  .then( data => t.equal(data, `@name: Base Style\n@html: <element class="base"></element>`) )
+  .then( data => t.looseEqual(data, [`@name: Base Style\n@html: <element class="base"></element>`, `@name: Another Style\n@html: <element class="another"></element>`]) )
   .catch( err => t.fail(err) )
 
 });
