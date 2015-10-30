@@ -1,17 +1,22 @@
 # File Pluck
-Pluck stuff from files (or strings).  
 [![Build Status](https://travis-ci.org/iAmNathanJ/file-pluck.svg?branch=master)](https://travis-ci.org/iAmNathanJ/file-pluck)
 
 ---
 
-- Return snippets of strings or key/value pairs in JSON formatzz
-- Use custom delimiters
+- Pluck snippets from files (or any string)
+- Return snippets in the form strings or...
+- Break snippets into key/value pairs 
+- Optionally, output a file in JSON formatzz or...
+- Override the format function to your liking
 
 ### TODO
+- [x] Write more tests
 - [ ] Write more tests
 - [x] Add pluck function
 - [x] Add pluckAll function, return array of all snippets
 - [x] Add custom delimiters for pluck function
 - [ ] Add function to reduce snippets to key/value pairs
 - [ ] Add custom delimiters for key/value pairs
-- [ ] Add JSON return function
+- [ ] Add output functionality
+  - [ ] Add JSON format function
+  - [ ] Add file writing function
