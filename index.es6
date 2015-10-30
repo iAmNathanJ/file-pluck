@@ -6,7 +6,7 @@ export default function({
     opening: '/***',
     closing: '***/',
     key: '@',
-    value: ':',
+    value: '::'
   },
 
   output = {
@@ -17,16 +17,21 @@ export default function({
 
 } = {}) {
 
-  let delimiterStart = (str) => str.indexOf(delimiters.opening)
-    , snippetStart = (str) => str.indexOf(delimiters.opening) + delimiters.opening.length
-    , snippetEnd = (str) => str.indexOf(delimiters.closing)
-    , delimiterEnd = (str) => str.indexOf(delimiters.closing) + delimiters.closing.length;
+  // Helpers
+  let delimiterStart      = (str) => str.indexOf(delimiters.opening)
+    , snippetStart        = (str) => str.indexOf(delimiters.opening) + delimiters.opening.length
+    , snippetEnd          = (str) => str.indexOf(delimiters.closing)
+    , delimiterEnd        = (str) => str.indexOf(delimiters.closing) + delimiters.closing.length
+    , keyDelimiterStart   = (str) => str.indexOf(delimiters.key)
+    , keyStart            = (str) => str.indexOf(delimiters.key) + delimiters.key.length
+    , valueDelimiterStart = (str) => str.indexOf(delimiters.value)
+    , valueStart          = (str) => str.indexOf(delimiters.value) + delimiters.value.length;
 
   return {
 
     pluckable(str) {
       // Returns true if both opening and closing delimiters are found
-      return snippetStart(str) !== -1 && snippetEnd(str) !== -1;
+      return delimiterStart(str) !== -1 && snippetEnd(str) !== -1;
     },
 
     pluck(str) {
@@ -56,6 +61,15 @@ export default function({
     pluckFile(file) {
       return this.read(file)
       .then( fileContents => this.pluckAll(fileContents) )
+    },
+
+    hasKeyValue(str) {
+      // Returns true if both key and value delimiters are found
+      return keyDelimiterStart(str) !== -1 && valueDelimiterStart(str) !== -1;
+    },
+
+    jsonify(str) {
+      
     }
 
   };

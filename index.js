@@ -18,7 +18,7 @@ exports['default'] = function () {
     opening: '/***',
     closing: '***/',
     key: '@',
-    value: ':'
+    value: '::'
   } : _ref$delimiters;
   var _ref$output = _ref.output;
   var output = _ref$output === undefined ? {
@@ -27,6 +27,7 @@ exports['default'] = function () {
     }
   } : _ref$output;
 
+  // Helpers
   var delimiterStart = function delimiterStart(str) {
     return str.indexOf(delimiters.opening);
   },
@@ -38,13 +39,25 @@ exports['default'] = function () {
   },
       delimiterEnd = function delimiterEnd(str) {
     return str.indexOf(delimiters.closing) + delimiters.closing.length;
+  },
+      keyDelimiterStart = function keyDelimiterStart(str) {
+    return str.indexOf(delimiters.key);
+  },
+      keyStart = function keyStart(str) {
+    return str.indexOf(delimiters.key) + delimiters.key.length;
+  },
+      valueDelimiterStart = function valueDelimiterStart(str) {
+    return str.indexOf(delimiters.value);
+  },
+      valueStart = function valueStart(str) {
+    return str.indexOf(delimiters.value) + delimiters.value.length;
   };
 
   return {
 
     pluckable: function pluckable(str) {
       // Returns true if both opening and closing delimiters are found
-      return snippetStart(str) !== -1 && snippetEnd(str) !== -1;
+      return delimiterStart(str) !== -1 && snippetEnd(str) !== -1;
     },
 
     pluck: function pluck(str) {
@@ -77,7 +90,14 @@ exports['default'] = function () {
       return this.read(file).then(function (fileContents) {
         return _this.pluckAll(fileContents);
       });
-    }
+    },
+
+    hasKeyValue: function hasKeyValue(str) {
+      // Returns true if both key and value delimiters are found
+      return keyDelimiterStart(str) !== -1 && valueDelimiterStart(str) !== -1;
+    },
+
+    jsonify: function jsonify(str) {}
 
   };
 };
