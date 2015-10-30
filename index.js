@@ -22,16 +22,12 @@ exports['default'] = function () {
   } : _ref$delimiters;
   var _ref$output = _ref.output;
   var output = _ref$output === undefined ? {
-    opening: '{',
-    closing: '}',
-    separator: ',',
     wrap: function wrap(key, value) {
       return '"' + key + '": "' + value + '"';
     }
   } : _ref$output;
 
-  var snippets = [],
-      delimiterStart = function delimiterStart(str) {
+  var delimiterStart = function delimiterStart(str) {
     return str.indexOf(delimiters.opening);
   },
       snippetStart = function snippetStart(str) {
@@ -58,6 +54,7 @@ exports['default'] = function () {
     },
 
     pluckAll: function pluckAll(str) {
+      var snippets = [];
       while (this.pluckable(str)) {
         snippets.push(this.pluck(str));
         str = str.slice(delimiterEnd(str), str.length);
@@ -66,9 +63,7 @@ exports['default'] = function () {
     },
 
     read: function read(file) {
-
       return new Promise(function (resolve, reject) {
-
         _fs2['default'].readFile(file, 'utf-8', function (err, data) {
           if (err) reject(err);
           resolve(data);

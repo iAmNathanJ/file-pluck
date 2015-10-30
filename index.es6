@@ -10,9 +10,6 @@ export default function({
   },
 
   output = {
-    opening: '{',
-    closing: '}',
-    separator: ',',
     wrap(key, value) {
       return `"${key}": "${value}"`;
     }
@@ -20,8 +17,7 @@ export default function({
 
 } = {}) {
 
-  let snippets = []
-    , delimiterStart = (str) => str.indexOf(delimiters.opening)
+  let delimiterStart = (str) => str.indexOf(delimiters.opening)
     , snippetStart = (str) => str.indexOf(delimiters.opening) + delimiters.opening.length
     , snippetEnd = (str) => str.indexOf(delimiters.closing)
     , delimiterEnd = (str) => str.indexOf(delimiters.closing) + delimiters.closing.length;
@@ -40,6 +36,7 @@ export default function({
     },
 
     pluckAll(str) {
+      let snippets = [];
       while(this.pluckable(str)) {
         snippets.push(this.pluck(str));
         str = str.slice(delimiterEnd(str), str.length)
@@ -48,16 +45,12 @@ export default function({
     },
     
     read(file) {
-
       return new Promise((resolve, reject) => {
-      
         fs.readFile(file, 'utf-8', (err, data) => {  
           if(err) reject(err);
           resolve(data);
         });
-      
       });
-
     },
 
     pluckFile(file) {
