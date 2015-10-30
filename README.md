@@ -10,14 +10,6 @@
 - Override the format function to your liking
 
 ### TODO
-- [x] Write tests
 - [ ] Write more tests
-- [x] Add pluck function
-- [x] Add pluckAll function, return array of all snippets
-- [x] Add custom delimiters for pluck function
-- [x] Add function to reduce snippets to key/value pairs
-- [x] Add custom delimiters for key/value pairs
-- [x] Add output functionality
-  - [x] Add JSON format function
-  - [x] Add file writing function
+- [ ] Usage examples
 - [ ] Add regex to search functions
