@@ -13,14 +13,13 @@ var _fs2 = _interopRequireDefault(_fs);
 exports['default'] = function () {
   var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
-  var _ref$opening = _ref.opening;
-  var opening = _ref$opening === undefined ? '/***' : _ref$opening;
-  var _ref$closing = _ref.closing;
-  var closing = _ref$closing === undefined ? '***/' : _ref$closing;
-  var _ref$key = _ref.key;
-  var key = _ref$key === undefined ? '@' : _ref$key;
-  var _ref$value = _ref.value;
-  var value = _ref$value === undefined ? ':' : _ref$value;
+  var _ref$delimiters = _ref.delimiters;
+  var delimiters = _ref$delimiters === undefined ? {
+    opening: '/***',
+    closing: '***/',
+    key: '@',
+    value: ':'
+  } : _ref$delimiters;
   var _ref$output = _ref.output;
   var output = _ref$output === undefined ? {
     opening: '{',
@@ -33,16 +32,16 @@ exports['default'] = function () {
 
   var snippets = [],
       delimiterStart = function delimiterStart(str) {
-    return str.indexOf(opening);
+    return str.indexOf(delimiters.opening);
   },
       snippetStart = function snippetStart(str) {
-    return str.indexOf(opening) + opening.length;
+    return str.indexOf(delimiters.opening) + delimiters.opening.length;
   },
       snippetEnd = function snippetEnd(str) {
-    return str.indexOf(closing);
+    return str.indexOf(delimiters.closing);
   },
       delimiterEnd = function delimiterEnd(str) {
-    return str.indexOf(closing) + closing.length;
+    return str.indexOf(delimiters.closing) + delimiters.closing.length;
   };
 
   return {

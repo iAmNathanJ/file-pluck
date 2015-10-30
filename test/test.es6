@@ -73,8 +73,10 @@ test('pluck a snippet from file with custom delimiters', t => {
   t.plan(1);
 
   let p = pluck({
-    opening: `/*\n===`,
-    closing: `===\n*/`
+    delimiters: {
+      opening: `/*\n===`,
+      closing: `===\n*/`
+    }
   });
 
   p.pluckFile(__dirname + '/test-stylesheet2.css')

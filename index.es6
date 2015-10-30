@@ -21,8 +21,8 @@ export default function({
 } = {}) {
 
   let snippets = []
-    , delimiterStart = (str) => str.indexOf(delimeters.opening)
-    , snippetStart = (str) => str.indexOf(delimeters.opening) + delimeters.opening.length
+    , delimiterStart = (str) => str.indexOf(delimiters.opening)
+    , snippetStart = (str) => str.indexOf(delimiters.opening) + delimiters.opening.length
     , snippetEnd = (str) => str.indexOf(delimiters.closing)
     , delimiterEnd = (str) => str.indexOf(delimiters.closing) + delimiters.closing.length;
 
