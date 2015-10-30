@@ -1,5 +1,6 @@
 # File Pluck
-Pluck contents from files.
+Pluck stuff from files.  
+[![Build Status](https://travis-ci.org/iAmNathanJ/file-pluck.svg?branch=master)](https://travis-ci.org/iAmNathanJ/file-pluck)
 
 ---
 
