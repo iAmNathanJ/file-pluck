@@ -13,5 +13,6 @@ Pluck stuff from files.
 - [x] Add pluck function
 - [x] Add pluckAll function, return array of all snippets
 - [x] Add custom delimiters for pluck function
+- [ ] Add function to reduce snippets to key/value pairs 
 - [ ] Add custom delimiters for key/value pairs
 - [ ] Add JSON return function
