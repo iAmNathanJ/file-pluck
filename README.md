@@ -11,7 +11,7 @@ Pluck stuff from files.
 ### TODO
 - [ ] Write more tests
 - [x] Add pluck function
-- [ ] Add pluckAll function, return array of all instances of delimiters
+- [x] Add pluckAll function, return array of all snippets
 - [x] Add custom delimiters for pluck function
 - [ ] Add custom delimiters for key/value pairs
 - [ ] Add JSON return function
