@@ -40,6 +40,16 @@ exports['default'] = function () {
     // format function for key values
     format: function format(key, value) {
       return '"' + key + '": "' + value + '"';
+    },
+
+    // write formatted file to
+    write: function write(filename, content) {
+      return new Promise(function (resolve, reject) {
+        _fs2['default'].writeFile(filename, JSON.stringify(content), function (err) {
+          if (err) reject(err);
+          resolve(true);
+        });
+      });
     }
   } : _ref$output;
 
@@ -102,27 +112,32 @@ exports['default'] = function () {
     },
 
     pairUp: function pairUp(str) {
-
       if (!this.hasKeyValue(str)) return new Error('No key/value pairs found - \n        keyClosing = ' + keyClosing + ', valueClosing = ' + valueClosing);
 
       var pair = undefined;
-      return str.split(keyValueSeparator).reduce(function (prev, cur) {
 
+      return str.split(keyValueSeparator).reduce(function (prev, cur) {
         // Trim the string
         pair = cur.trim()
         // Drop the closing delimiter
         .slice(0, -1)
         // Split into pair
         .split(keyClosing);
-
         // add the trimmed key/value to the reduction object
         prev[pair[0].trim()] = pair[1].trim();
         return prev;
       }, {});
     },
 
-    jsonify: function jsonify(str) {}
+    pairUpAll: function pairUpAll(snippets) {
+      var _this2 = this;
 
+      return snippets.map(function (snippet) {
+        return _this2.pairUp(snippet);
+      });
+    },
+
+    write: output.write
   };
 };
 

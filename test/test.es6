@@ -137,6 +137,49 @@ test('produce object from key/values in snippet', t => {
 
 
 
+test('produce array of objects from all snippets', t => {
+
+  let p = pluck()
+    
+    , testArr = [
+      'key1 { VALUE1 } --- key2 { VALUE2 }',
+      'key1 { VALUE1 } --- key2 { VALUE2 }']
+    
+    , shouldBeEqual = [
+      { key1: 'VALUE1', key2: 'VALUE2' },
+      { key1: 'VALUE1', key2: 'VALUE2' }];
+
+  t.looseEquals(p.pairUpAll(testArr), shouldBeEqual);
+
+  t.end();
+});
+
+
+
+test('write JSON file', t => {
+
+  t.plan(1);
+
+  let p = pluck()
+    
+    , testArr = [
+      'key1 { VALUE1 } --- key2 { VALUE2 }',
+      'key1 { VALUE1 } --- key2 { VALUE2 }']
+    
+    , shouldBeEqual = [
+      { key1: 'VALUE1', key2: 'VALUE2' },
+      { key1: 'VALUE1', key2: 'VALUE2' }];
+
+  let compiled = p.pairUpAll(testArr);
+  
+  p.write('test/output.json', compiled)
+  .then( success => t.pass('Successfully writes json file') )
+  .catch( err => t.fail(err) )
+
+});
+
+
+
 test('output should format key/value pairs according to override', {skip: true}, t => {
 
   let p = pluck({

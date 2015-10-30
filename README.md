@@ -15,8 +15,9 @@
 - [x] Add pluck function
 - [x] Add pluckAll function, return array of all snippets
 - [x] Add custom delimiters for pluck function
-- [ ] Add function to reduce snippets to key/value pairs
-- [ ] Add custom delimiters for key/value pairs
-- [ ] Add output functionality
-  - [ ] Add JSON format function
-  - [ ] Add file writing function
+- [x] Add function to reduce snippets to key/value pairs
+- [x] Add custom delimiters for key/value pairs
+- [x] Add output functionality
+  - [x] Add JSON format function
+  - [x] Add file writing function
+- [ ] Add regex to search functions

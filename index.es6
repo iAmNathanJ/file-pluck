@@ -18,6 +18,16 @@ export default function({
     // format function for key values
     format(key, value) {
       return `"${key}": "${value}"`;
+    },
+    
+    // write formatted file to 
+    write(filename, content) {
+      return new Promise((resolve, reject) => {
+        fs.writeFile(filename, JSON.stringify(content), err => {
+          if(err) reject(err);
+          resolve(true);
+        });
+      });
     }
   }
 
@@ -71,31 +81,29 @@ export default function({
     },
 
     pairUp(str) {
-      
       if(!this.hasKeyValue(str)) return new Error(`No key/value pairs found - 
         keyClosing = ${keyClosing}, valueClosing = ${valueClosing}`);
       
       let pair;
+
       return str.split(keyValueSeparator).reduce((prev, cur) => {
-        
         // Trim the string
         pair = cur.trim()
           // Drop the closing delimiter
           .slice(0, -1)
           // Split into pair
           .split(keyClosing);
-
         // add the trimmed key/value to the reduction object
         prev[pair[0].trim()] = pair[1].trim()
         return prev;
-
       }, {});
     },
 
-    jsonify(str) {
-      
-    }
+    pairUpAll(snippets) {
+      return snippets.map(snippet => this.pairUp(snippet) );
+    },
 
+    write: output.write
   };
 
 }
