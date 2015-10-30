@@ -9,6 +9,8 @@ export default function({
     value: '::'
   },
 
+  limit = null,
+
   output = {
     wrap(key, value) {
       return `"${key}": "${value}"`;
