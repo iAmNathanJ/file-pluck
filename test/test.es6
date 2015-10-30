@@ -125,22 +125,29 @@ test('pair up keys/values from snippet', t => {
 });
 
 
-test('output.wrap() should format key/value pairs according to override', {skip: true}, t => {
+
+test('produce object from key/values in snippet', t => {
+
+  let p = pluck();
+
+  t.looseEquals(p.pairUp('key1 { VALUE1 } --- key2 { VALUE2 }'), {key1: 'VALUE1', key2: 'VALUE2'});
+
+  t.end();
+});
+
+
+
+test('output should format key/value pairs according to override', {skip: true}, t => {
 
   let p = pluck({
     output: {
-      wrap(key, value) {
-        return `{{${key}}} / {{${value}}}`
+      format(key, value) {
+        return `{{${key}}} / {{${value}}}`;
       }
     }
   });
-  
-  let item = {
-    key: 'name',
-    val: 'nate'
-  };
 
-  t.equal(p.output.wrap(item.key, item.val), '{{name}} / {{nate}}');
+  t.equal(p.output.format('name', 'nate'), '{{name}} / {{nate}}');
 
   t.end();
 });

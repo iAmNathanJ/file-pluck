@@ -5,9 +5,9 @@ export default function({
   // delimiters
   opening = '/***',
   closing = '***/',
-  keyOpening = '@',
-  valueOpening = '{',
+  keyClosing = '{',
   valueClosing = '}',
+  keyValueSeparator = '---',
   
   // limit number of key/value return 
   limit = null,
@@ -15,8 +15,8 @@ export default function({
   // output
   output = {
 
-    // wrapper function for key values
-    wrap(key, value) {
+    // format function for key values
+    format(key, value) {
       return `"${key}": "${value}"`;
     }
   }
@@ -67,17 +67,29 @@ export default function({
 
     hasKeyValue(str) {
       // Returns true if all key/value delimiters are found
-      return (
-        str.indexOf(keyOpening)   !== -1 &&
-        str.indexOf(valueOpening) !== -1 &&
-        str.indexOf(valueClosing) !== -1
-      );
+      return str.indexOf(keyClosing) !== -1 && str.indexOf(valueClosing) !== -1;
     },
 
     pairUp(str) {
+      
       if(!this.hasKeyValue(str)) return new Error(`No key/value pairs found - 
-        keyOpening = ${keyOpening}, valueOpening = ${valueOpening}, valueClosing = ${valueClosing}`);
-      // return str.split(delimiters.value);
+        keyClosing = ${keyClosing}, valueClosing = ${valueClosing}`);
+      
+      let pair;
+      return str.split(keyValueSeparator).reduce((prev, cur) => {
+        
+        // Trim the string
+        pair = cur.trim()
+          // Drop the closing delimiter
+          .slice(0, -1)
+          // Split into pair
+          .split(keyClosing);
+
+        // add the trimmed key/value to the reduction object
+        prev[pair[0].trim()] = pair[1].trim()
+        return prev;
+
+      }, {});
     },
 
     jsonify(str) {

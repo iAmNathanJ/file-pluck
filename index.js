@@ -20,12 +20,12 @@ exports['default'] = function () {
   opening = _ref$opening === undefined ? '/***' : _ref$opening;
   var _ref$closing = _ref.closing;
   var closing = _ref$closing === undefined ? '***/' : _ref$closing;
-  var _ref$keyOpening = _ref.keyOpening;
-  var keyOpening = _ref$keyOpening === undefined ? '@' : _ref$keyOpening;
-  var _ref$valueOpening = _ref.valueOpening;
-  var valueOpening = _ref$valueOpening === undefined ? '{' : _ref$valueOpening;
+  var _ref$keyClosing = _ref.keyClosing;
+  var keyClosing = _ref$keyClosing === undefined ? '{' : _ref$keyClosing;
   var _ref$valueClosing = _ref.valueClosing;
   var valueClosing = _ref$valueClosing === undefined ? '}' : _ref$valueClosing;
+  var _ref$keyValueSeparator = _ref.keyValueSeparator;
+  var keyValueSeparator = _ref$keyValueSeparator === undefined ? '---' : _ref$keyValueSeparator;
   var _ref$limit = _ref.limit;
   var
 
@@ -37,8 +37,8 @@ exports['default'] = function () {
   // output
   output = _ref$output === undefined ? {
 
-    // wrapper function for key values
-    wrap: function wrap(key, value) {
+    // format function for key values
+    format: function format(key, value) {
       return '"' + key + '": "' + value + '"';
     }
   } : _ref$output;
@@ -98,12 +98,27 @@ exports['default'] = function () {
 
     hasKeyValue: function hasKeyValue(str) {
       // Returns true if all key/value delimiters are found
-      return str.indexOf(keyOpening) !== -1 && str.indexOf(valueOpening) !== -1 && str.indexOf(valueClosing) !== -1;
+      return str.indexOf(keyClosing) !== -1 && str.indexOf(valueClosing) !== -1;
     },
 
     pairUp: function pairUp(str) {
-      if (!this.hasKeyValue(str)) return new Error('No key/value pairs found - \n        keyOpening = ' + keyOpening + ', valueOpening = ' + valueOpening + ', valueClosing = ' + valueClosing);
-      // return str.split(delimiters.value);
+
+      if (!this.hasKeyValue(str)) return new Error('No key/value pairs found - \n        keyClosing = ' + keyClosing + ', valueClosing = ' + valueClosing);
+
+      var pair = undefined;
+      return str.split(keyValueSeparator).reduce(function (prev, cur) {
+
+        // Trim the string
+        pair = cur.trim()
+        // Drop the closing delimiter
+        .slice(0, -1)
+        // Split into pair
+        .split(keyClosing);
+
+        // add the trimmed key/value to the reduction object
+        prev[pair[0].trim()] = pair[1].trim();
+        return prev;
+      }, {});
     },
 
     jsonify: function jsonify(str) {}
