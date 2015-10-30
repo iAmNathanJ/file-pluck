@@ -77,11 +77,19 @@ exports['default'] = function () {
       });
     },
 
-    compile: function compile(file) {
+    pluckFile: function pluckFile(file) {
       var _this = this;
 
       return this.read(file).then(function (fileContents) {
         return _this.pluck(fileContents);
+      });
+    },
+
+    pluckFileAll: function pluckFileAll(file) {
+      var _this2 = this;
+
+      return this.read(file).then(function (fileContents) {
+        return _this2.pluckAll(fileContents);
       });
     }
 
