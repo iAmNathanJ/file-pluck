@@ -1,7 +1,7 @@
 {
   "name": "file-pluck",
   "version": "0.2.0",
-  "description": "Pluck contents from files. Return strings or key/value pairs.",
+  "description": "Pluck snippets from files (or strings). Return strings or key/value pairs.",
   "license": "ISC",
   "repository": {
     "type": "git",

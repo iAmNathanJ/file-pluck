@@ -2,10 +2,12 @@ import fs from 'fs';
 
 export default function({
 
-  opening = '/***',
-  closing = '***/',
-  key = '@',
-  value = ':',
+  delimiters = {
+    opening: '/***',
+    closing: '***/',
+    key: '@',
+    value: ':',
+  },
 
   output = {
     opening: '{',
@@ -19,10 +21,10 @@ export default function({
 } = {}) {
 
   let snippets = []
-    , delimiterStart = (str) => str.indexOf(opening)
-    , snippetStart = (str) => str.indexOf(opening) + opening.length
-    , snippetEnd = (str) => str.indexOf(closing)
-    , delimiterEnd = (str) => str.indexOf(closing) + closing.length;
+    , delimiterStart = (str) => str.indexOf(delimeters.opening)
+    , snippetStart = (str) => str.indexOf(delimeters.opening) + delimeters.opening.length
+    , snippetEnd = (str) => str.indexOf(delimiters.closing)
+    , delimiterEnd = (str) => str.indexOf(delimiters.closing) + delimiters.closing.length;
 
   return {
 

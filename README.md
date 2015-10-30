@@ -4,9 +4,8 @@ Pluck stuff from files (or strings).
 
 ---
 
-- Return strings or key/value pairs in JSON format
+- Return snippets of strings or key/value pairs in JSON formatzz
 - Use custom delimiters
-
 
 ### TODO
 - [ ] Write more tests
