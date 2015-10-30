@@ -18,24 +18,31 @@ export default function({
 
 } = {}) {
 
-  let snippets = [];
-  let start = (str) => str.indexOf(opening) + opening.length;
-  let end = (str) => str.indexOf(closing);
+  let snippets = []
+    , delimiterStart = (str) => str.indexOf(opening)
+    , snippetStart = (str) => str.indexOf(opening) + opening.length
+    , snippetEnd = (str) => str.indexOf(closing)
+    , delimiterEnd = (str) => str.indexOf(closing) + closing.length;
 
   return {
 
     pluckable(str) {
       // Returns true if both opening and closing delimiters are found
-      return start(str) !== -1 && end(str) !== -1;
+      return snippetStart(str) !== -1 && snippetEnd(str) !== -1;
     },
 
     pluck(str) {
-      if(!this.pluckable(str)) throw new Error('Unpluckable input');
+      if(!this.pluckable(str)) return new Error('unpluckable input');
       // Returns the first pluckable snippet
-      return str.substring(start(str), end(str)).trim();
+      return str.substring(snippetStart(str), snippetEnd(str)).trim();
     },
 
     pluckAll(str) {
+      while(this.pluckable(str)) {
+        snippets.push(this.pluck(str));
+        str = str.slice(delimiterEnd(str), str.length)
+      }
+      return snippets;
     },
     
     read(file) {
@@ -56,18 +63,6 @@ export default function({
       .then( fileContents => this.pluck(fileContents) )
     }
 
-    // build(itemsArray) {
-    //   return itemsArray.map((item, i, arr) => {
-
-    //     let separator = output.separator;
-        
-    //     return Object.keys(item).map(key => {
-        
-    //       return output.wrap(key, item[key]) + separator;
-        
-    //     });
-    //   });
-    // }
   };
 
 }

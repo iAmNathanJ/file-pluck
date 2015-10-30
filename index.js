@@ -31,28 +31,40 @@ exports['default'] = function () {
     }
   } : _ref$output;
 
-  var snippets = [];
-  var start = function start(str) {
+  var snippets = [],
+      delimiterStart = function delimiterStart(str) {
+    return str.indexOf(opening);
+  },
+      snippetStart = function snippetStart(str) {
     return str.indexOf(opening) + opening.length;
-  };
-  var end = function end(str) {
+  },
+      snippetEnd = function snippetEnd(str) {
     return str.indexOf(closing);
+  },
+      delimiterEnd = function delimiterEnd(str) {
+    return str.indexOf(closing) + closing.length;
   };
 
   return {
 
     pluckable: function pluckable(str) {
       // Returns true if both opening and closing delimiters are found
-      return start(str) !== -1 && end(str) !== -1;
+      return snippetStart(str) !== -1 && snippetEnd(str) !== -1;
     },
 
     pluck: function pluck(str) {
-      if (!this.pluckable(str)) throw new Error('Unpluckable input');
+      if (!this.pluckable(str)) return new Error('unpluckable input');
       // Returns the first pluckable snippet
-      return str.substring(start(str), end(str)).trim();
+      return str.substring(snippetStart(str), snippetEnd(str)).trim();
     },
 
-    pluckAll: function pluckAll(str) {},
+    pluckAll: function pluckAll(str) {
+      while (this.pluckable(str)) {
+        snippets.push(this.pluck(str));
+        str = str.slice(delimiterEnd(str), str.length);
+      }
+      return snippets;
+    },
 
     read: function read(file) {
 
@@ -73,18 +85,6 @@ exports['default'] = function () {
       });
     }
 
-    // build(itemsArray) {
-    //   return itemsArray.map((item, i, arr) => {
-
-    //     let separator = output.separator;
-
-    //     return Object.keys(item).map(key => {
-
-    //       return output.wrap(key, item[key]) + separator;
-
-    //     });
-    //   });
-    // }
   };
 };
 
