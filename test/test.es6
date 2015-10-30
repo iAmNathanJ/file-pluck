@@ -54,13 +54,13 @@ test('read a string from a file', t => {
 
 
 
-test('pluck a string from file', t => {
+test('pluck a snippet from file', t => {
 
   t.plan(1);
 
   let p = pluck();
 
-  p.compile(__dirname + '/test-stylesheet.css')
+  p.pluckFile(__dirname + '/test-stylesheet.css')
   .then( data => t.equal(data,`@name: Base Style\n@html: <element class="base"></element>`) )
   .catch( err => t.fail(err) )
 
@@ -68,7 +68,7 @@ test('pluck a string from file', t => {
 
 
 
-test('pluck a string from file with custom delimiters', t => {
+test('pluck a snippet from file with custom delimiters', t => {
 
   t.plan(1);
 
@@ -77,7 +77,7 @@ test('pluck a string from file with custom delimiters', t => {
     closing: `===\n*/`
   });
 
-  p.compile(__dirname + '/test-stylesheet2.css')
+  p.pluckFile(__dirname + '/test-stylesheet2.css')
   .then( data => t.equal(data, `@name: Base Style\n@html: <element class="base"></element>`) )
   .catch( err => t.fail(err) )
 
@@ -96,6 +96,21 @@ test('pluck all snippets from a string', t => {
 
   t.end();
 });
+
+
+
+test('pluck all snippets from file', t => {
+
+  t.plan(1);
+
+  let p = pluck();
+
+  p.pluckFileAll(__dirname + '/test-stylesheet.css')
+  .then( data => t.looseEqual(data, [`@name: Base Style\n@html: <element class="base"></element>`, `@name: Another Style\n@html: <element class="another"></element>`]) )
+  .catch( err => t.fail(err) )
+
+});
+
 
 
 test('output.wrap() should format key/value pairs according to override', {skip: true}, t => {
