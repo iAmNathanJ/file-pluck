@@ -1,8 +1,8 @@
 {
   "name": "file-pluck",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Pluck contents from files. Return strings or key/value pairs.",
-  "license": "MIT",
+  "license": "ISC",
   "repository": {
     "type": "git",
     "url": "iAmNathanJ/file-pluck"
@@ -17,7 +17,6 @@
     "ci": "npm test"
   },
   "author": "Nathan Jacobs",
-  "license": "ISC",
   "devDependencies": {
     "babel": "^5.8.29",
     "tap-spec": "^4.1.0",
