@@ -85,31 +85,17 @@ test('pluck a string from file with custom delimiters', t => {
 
 
 
-test('output.wrap should be a function', {skip: true}, t => {
-  
-  let p = pluck();
+test('pluck all snippets from a string', t => {
 
-  t.equal();
+  let p = pluck()
+    , str = '/*** SNIPPET 1 ***/ /*** SNIPPET 2 ***/'
+    , arr = p.pluckAll(str);
 
-  t.end();
-});
-
-
-
-test('output.wrap() should format key/value pairs for json output by default', {skip: true}, t => {
-
-  let p = pluck();
-  
-  let item = {
-    key: 'name',
-    val: 'nate'
-  };
-
-  t.equal(p.output.wrap(item.key, item.val), '{"name": "nate"}');
+  t.ok(Array.isArray(arr), 'pluck all is an array');
+  t.looseEqual(arr, ['SNIPPET 1', 'SNIPPET 2']);
 
   t.end();
 });
-
 
 
 test('output.wrap() should format key/value pairs according to override', {skip: true}, t => {
@@ -128,49 +114,6 @@ test('output.wrap() should format key/value pairs according to override', {skip:
   };
 
   t.equal(p.output.wrap(item.key, item.val), '{{name}} / {{nate}}');
-
-  t.end();
-});
-
-
-
-test('build(array) should return an array', {skip: true}, t => {
-
-  let p = pluck();
-
-  let items = [
-    { key: 'key1', value: 'val1' },
-    { key: 'key2', value: 'val2' },
-    { key: 'key3', value: 'val3' }
-  ];
-
-  t.equal(Array.isArray(p.build(items)), true);
-
-  t.end();
-});
-
-
-
-test('build(array) return array should be series of key values run through output.wrap() function and separated by output.separator', {skip: true}, t => {
-
-  let p = pluck();
-
-  let items = [
-    { key: 'key1', value: 'val1' },
-    { key: 'key2', value: 'val2' },
-    { key: 'key3', value: 'val3' }
-  ];
-
-  t.equal(p.build(items), [{"key1": "val1"},{"key2": "val2"},{"key3": "val3"}]);
-
-  t.end();
-});
-
-
-
-test('build(notArray) should throw an error if argument is not an array', {skip: true}, t => {
-
-  let arg = 'this argument is not an array';
 
   t.end();
 });
