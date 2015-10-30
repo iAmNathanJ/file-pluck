@@ -55,11 +55,6 @@ export default function({
 
     pluckFile(file) {
       return this.read(file)
-      .then( fileContents => this.pluck(fileContents) )
-    },
-
-    pluckFileAll(file) {
-      return this.read(file)
       .then( fileContents => this.pluckAll(fileContents) )
     }
 

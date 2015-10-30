@@ -54,39 +54,6 @@ test('read a string from a file', t => {
 
 
 
-test('pluck a snippet from file', t => {
-
-  t.plan(1);
-
-  let p = pluck();
-
-  p.pluckFile(__dirname + '/test-stylesheet.css')
-  .then( data => t.equal(data,`@name: Base Style\n@html: <element class="base"></element>`) )
-  .catch( err => t.fail(err) )
-
-});
-
-
-
-test('pluck a snippet from file with custom delimiters', t => {
-
-  t.plan(1);
-
-  let p = pluck({
-    delimiters: {
-      opening: `/*\n===`,
-      closing: `===\n*/`
-    }
-  });
-
-  p.pluckFile(__dirname + '/test-stylesheet2.css')
-  .then( data => t.equal(data, `@name: Base Style\n@html: <element class="base"></element>`) )
-  .catch( err => t.fail(err) )
-
-});
-
-
-
 test('pluck all snippets from a string', t => {
 
   let p = pluck()
@@ -107,8 +74,27 @@ test('pluck all snippets from file', t => {
 
   let p = pluck();
 
-  p.pluckFileAll(__dirname + '/test-stylesheet.css')
+  p.pluckFile(__dirname + '/test-stylesheet.css')
   .then( data => t.looseEqual(data, [`@name: Base Style\n@html: <element class="base"></element>`, `@name: Another Style\n@html: <element class="another"></element>`]) )
+  .catch( err => t.fail(err) )
+
+});
+
+
+
+test('pluck all snippets from file with custom delimiters', t => {
+
+  t.plan(1);
+
+  let p = pluck({
+    delimiters: {
+      opening: `/*\n===`,
+      closing: `===\n*/`
+    }
+  });
+
+  p.pluckFile(__dirname + '/test-stylesheet2.css')
+  .then( data => t.equal(data, `@name: Base Style\n@html: <element class="base"></element>`) )
   .catch( err => t.fail(err) )
 
 });
