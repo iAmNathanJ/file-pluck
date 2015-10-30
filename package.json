@@ -1,6 +1,6 @@
 {
   "name": "file-pluck",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Pluck snippets from files (or strings). Return strings or key/value pairs.",
   "license": "ISC",
   "repository": {
