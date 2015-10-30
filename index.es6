@@ -2,16 +2,20 @@ import fs from 'fs';
 
 export default function({
 
-  delimiters = {
-    opening: '/***',
-    closing: '***/',
-    key: '@',
-    value: '::'
-  },
-
+  // delimiters
+  opening = '/***',
+  closing = '***/',
+  keyOpening = '@',
+  valueOpening = '{',
+  valueClosing = '}',
+  
+  // limit number of key/value return 
   limit = null,
 
+  // output
   output = {
+
+    // wrapper function for key values
     wrap(key, value) {
       return `"${key}": "${value}"`;
     }
@@ -20,14 +24,10 @@ export default function({
 } = {}) {
 
   // Helpers
-  let delimiterStart      = (str) => str.indexOf(delimiters.opening)
-    , snippetStart        = (str) => str.indexOf(delimiters.opening) + delimiters.opening.length
-    , snippetEnd          = (str) => str.indexOf(delimiters.closing)
-    , delimiterEnd        = (str) => str.indexOf(delimiters.closing) + delimiters.closing.length
-    , keyDelimiterStart   = (str) => str.indexOf(delimiters.key)
-    , keyStart            = (str) => str.indexOf(delimiters.key) + delimiters.key.length
-    , valueDelimiterStart = (str) => str.indexOf(delimiters.value)
-    , valueStart          = (str) => str.indexOf(delimiters.value) + delimiters.value.length;
+  let delimiterStart  = (str) => str.indexOf(opening)
+    , snippetStart    = (str) => str.indexOf(opening) + opening.length
+    , snippetEnd      = (str) => str.indexOf(closing)
+    , delimiterEnd    = (str) => str.indexOf(closing) + closing.length;
 
   return {
 
@@ -37,7 +37,7 @@ export default function({
     },
 
     pluck(str) {
-      if(!this.pluckable(str)) return new Error('unpluckable input');
+      if(!this.pluckable(str)) return new Error('unpluckable input'); 
       // Returns the first pluckable snippet
       return str.substring(snippetStart(str), snippetEnd(str)).trim();
     },
@@ -66,8 +66,18 @@ export default function({
     },
 
     hasKeyValue(str) {
-      // Returns true if both key and value delimiters are found
-      return keyDelimiterStart(str) !== -1 && valueDelimiterStart(str) !== -1;
+      // Returns true if all key/value delimiters are found
+      return (
+        str.indexOf(keyOpening)   !== -1 &&
+        str.indexOf(valueOpening) !== -1 &&
+        str.indexOf(valueClosing) !== -1
+      );
+    },
+
+    pairUp(str) {
+      if(!this.hasKeyValue(str)) return new Error(`No key/value pairs found - 
+        keyOpening = ${keyOpening}, valueOpening = ${valueOpening}, valueClosing = ${valueClosing}`);
+      // return str.split(delimiters.value);
     },
 
     jsonify(str) {
