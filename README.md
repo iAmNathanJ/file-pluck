@@ -10,7 +10,7 @@
 - Override the format function to your liking
 
 ### TODO
-- [x] Write more tests
+- [x] Write tests
 - [ ] Write more tests
 - [x] Add pluck function
 - [x] Add pluckAll function, return array of all snippets
