@@ -45,7 +45,7 @@ let snippets = p.pluckFile('text.txt');
 
 ---
 
-By default opening and closing delimiters are set as `/***` and `***/`. You can change that to suit your needs.
+By default opening and closing delimiters are set as `/***` and `***/`. You can change that to suit your needs. Consider the following *index.html*
 ```html
 <div>
 
@@ -58,7 +58,7 @@ By default opening and closing delimiters are set as `/***` and `***/`. You can 
 </div>
 ```
 
-call `pluckFile` on text.txt
+call `pluckFile` on index.html
 
 ```node
 import filePluck from 'file-pluck'
