@@ -32,7 +32,7 @@ blah...
 ```
 
 ```node
-import filePluck from 'file-pluck'
+import filePluck from 'file-pluck';
 
 let p = filePluck();
 
@@ -58,7 +58,7 @@ By default opening and closing delimiters are set as `/***` and `***/`. You can 
 ```
 
 ```node
-import filePluck from 'file-pluck'
+import filePluck from 'file-pluck';
 
 let p = filePluck({
   opening: '<!--',
@@ -109,7 +109,7 @@ example { <div class="another-class"></div> }
 ```
 
 ```node
-import filePluck from 'file-pluck'
+import filePluck from 'file-pluck';
 
 let p = filePluck();
 
