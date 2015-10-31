@@ -3,8 +3,8 @@
 
 ---
 
-- Pluck snippets from files (or any string)
-- Return snippets in the form strings or...
+- Pluck snippets from files (or any plain string)
+- Return snippets in the form of strings or...
 - Break snippets into key/value pairs 
 - Optionally, output a file in JSON formatzz or...
 - Override the format function to your liking
