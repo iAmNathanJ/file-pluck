@@ -18,7 +18,7 @@
 `npm i file-pluck`
 
 ## Usage
-Conside this file `text.txt`  
+Consider this file `text.txt`  
 
 ```
 ...blah blah blah
