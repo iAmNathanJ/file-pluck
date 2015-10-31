@@ -44,6 +44,7 @@ let snippets = p.pluckFile('text.txt');
 ---
 
 By default opening and closing delimiters are set as `/***` and `***/`. You can change that to suit your needs.  
+
 *index.html*
 ```html
 <div>
