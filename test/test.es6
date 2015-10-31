@@ -6,7 +6,9 @@ import pluck from '../';
 test('check for pluckable content', t => {
 
   // TODO
-  // Add Regex to delimiter testing ('/***/' will cause problems)
+  // Add Regex to delimiter testing
+  // File contents of '/***/' will cause problems
+  // Also, if opening and closing delimiters are the same value, that should also cause a problem
 
   let p = pluck();
 
