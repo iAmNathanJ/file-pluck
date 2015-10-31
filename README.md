@@ -1,7 +1,8 @@
 # File Pluck
 [![Build Status](https://travis-ci.org/iAmNathanJ/file-pluck.svg?branch=master)](https://travis-ci.org/iAmNathanJ/file-pluck)  
-***Expect this API to change until v1.0 is published***
 ---
+
+***Expect this API to change until v1.0 is published***
 
 - Pluck snippets from files (or any plain string)
 - Return snippets in the form of strings or...
