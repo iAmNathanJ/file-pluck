@@ -18,8 +18,7 @@
 `npm i file-pluck`
 
 ## Usage
-Consider this file *text.txt*
-
+Consider the following *text.txt*
 ```
 ...blah blah blah
 
@@ -38,6 +37,36 @@ call `pluckFile` on text.txt
 import filePluck from 'file-pluck'
 
 let p = filePluck();
+
+let snippets = p.pluckFile('text.txt');
+
+// ['pluck me', 'pluck me too']
+```
+
+---
+
+By default opening and closing delimiters are set as `/***` and `***/`. You can change that to suit your needs.
+```html
+<div>
+
+  <!-- <img src="img1" /> -->
+
+  <div></div>
+
+  <!-- <img src="img2" /> -->
+
+</div>
+```
+
+call `pluckFile` on text.txt
+
+```node
+import filePluck from 'file-pluck'
+
+let p = filePluck({
+  opening: '<!--',
+  closing: '-->'
+});
 
 let snippets = p.pluckFile('text.txt');
 
