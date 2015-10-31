@@ -113,7 +113,10 @@ import filePluck from 'file-pluck';
 
 let p = filePluck();
 
-let snippets = p.pairUpAll('main.css');
+p.pluckFile('main.css')
+.then(snippets => {
+  console.log( p.pairUpAll(snippets) );
+});
 
 // [{name: 'base', desc: 'Used for everything.', example: '<div class="base"></div>'}, {name: 'another-class', desc: 'Not used for everything.', example: '<div class="another-class"></div>'}]
 ```
