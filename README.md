@@ -21,21 +21,15 @@
 Conside this file `text.txt`  
 
 ```
-...texty stuff
+...blah blah blah
 
-/***
+/*** pluck me ***/
 
-pluck me
+blah blah blah...
 
-***/
+/*** pluck me too ***/
 
-/***
-
-pluck me too
-
-***/
-
-more texty stuf...
+blah...
 ```
 
 ```node
