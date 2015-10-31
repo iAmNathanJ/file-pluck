@@ -18,15 +18,17 @@
 `npm i file-pluck`
 
 ## Usage
+The pluckFile function returns a promise. Use it like so...  
+
 *text.txt*
 ```
 ...blah blah blah
 
-/*** pluck me ***/
+/*** pluck this text ***/
 
 blah blah blah...
 
-/*** pluck me too ***/
+/*** pluck this text too ***/
 
 blah...
 ```
@@ -36,14 +38,18 @@ import filePluck from 'file-pluck';
 
 let p = filePluck();
 
-let snippets = p.pluckFile('text.txt');
+let getSnippets = p.pluckFile('test.txt')
 
-// ['pluck me', 'pluck me too']
+getSnippets.then(snippets => {
+  console.log(snippets);
+});
+
+// ['pluck this text', 'pluck this text too']
 ```
 
 ---
 
-By default opening and closing delimiters are set as `/***` and `***/`. You can change that to suit your needs.  
+By default, opening and closing delimiters are set as `/***` and `***/`. You can change that to suit your needs.  
 
 *index.html*
 ```html
@@ -59,14 +65,16 @@ By default opening and closing delimiters are set as `/***` and `***/`. You can 
 ```
 
 ```node
-import filePluck from 'file-pluck';
-
 let p = filePluck({
   opening: '<!--',
   closing: '-->'
 });
 
-let snippets = p.pluckFile('index.html');
+let getSnippets = p.pluckFile('index.html');
+
+getSnippets.then(snippets => {
+  console.log(snippets);
+});
 
 // ['<img src="img1" />', '<img src="img2" />']
 ```
@@ -99,7 +107,7 @@ example { <div class="base"></div> }
 
 /***
 
-className { another-class }
+name { another-class }
 ---
 desc { Not used for everything. }
 ---

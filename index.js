@@ -121,7 +121,7 @@ exports['default'] = function () {
     },
 
     pairUp: function pairUp(str) {
-      if (!this.hasKeyValue(str)) return new Error('No key/value pairs found - \n        valueOpening = ' + valueOpening + ', valueClosing = ' + valueClosing);
+      if (!this.hasKeyValue(str)) return new Error('No key/value pairs found - valueOpening = ' + valueOpening + ', valueClosing = ' + valueClosing);
 
       var pair = undefined;
 
