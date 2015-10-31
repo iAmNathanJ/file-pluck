@@ -72,7 +72,7 @@ let snippets = p.pluckFile('index.html');
 
 ---
 
-If you want to break down snippets into key/value pairs, you can do so. This requires delimiters set on key/values. By default, they are valueOpening `{`, valueClosing `}`, and keyValueSeparator `---`.
+If you want to break down snippets into key/value pairs, you can do so. This requires delimiters set on key/values. By default, they are `valueOpening = '{'`, `valueClosing = '}'`, and `keyValueSeparator = '---'`.
 *main.css*
 ```css
 
