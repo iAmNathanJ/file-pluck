@@ -5,7 +5,7 @@ export default function({
   // delimiters
   opening = '/***',
   closing = '***/',
-  keyClosing = '{',
+  valueOpening = '{',
   valueClosing = '}',
   keyValueSeparator = '---',
   
@@ -86,12 +86,12 @@ export default function({
 
     hasKeyValue(str) {
       // Returns true if all key/value delimiters are found
-      return str.indexOf(keyClosing) !== -1 && str.indexOf(valueClosing) !== -1;
+      return str.indexOf(valueOpening) !== -1 && str.indexOf(valueClosing) !== -1;
     },
 
     pairUp(str) {
       if(!this.hasKeyValue(str)) return new Error(`No key/value pairs found - 
-        keyClosing = ${keyClosing}, valueClosing = ${valueClosing}`);
+        valueOpening = ${valueOpening}, valueClosing = ${valueClosing}`);
       
       let pair;
 
@@ -101,7 +101,7 @@ export default function({
           // Drop the closing delimiter
           .slice(0, -1)
           // Split into pair
-          .split(keyClosing);
+          .split(valueOpening);
         // add the trimmed key/value to the reduction object
         prev[pair[0].trim()] = pair[1].trim()
         return prev;

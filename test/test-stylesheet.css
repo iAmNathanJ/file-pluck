@@ -1,6 +1,7 @@
 /***
 
 name { Base Style }
+---
 html { <element class="base"></element> }
 
 ***/
@@ -14,6 +15,7 @@ html { <element class="base"></element> }
 /***
 
 name { Another Style }
+---
 html { <element class="another"></element> }
 
 ***/

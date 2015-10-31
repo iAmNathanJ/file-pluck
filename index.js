@@ -20,8 +20,8 @@ exports['default'] = function () {
   opening = _ref$opening === undefined ? '/***' : _ref$opening;
   var _ref$closing = _ref.closing;
   var closing = _ref$closing === undefined ? '***/' : _ref$closing;
-  var _ref$keyClosing = _ref.keyClosing;
-  var keyClosing = _ref$keyClosing === undefined ? '{' : _ref$keyClosing;
+  var _ref$valueOpening = _ref.valueOpening;
+  var valueOpening = _ref$valueOpening === undefined ? '{' : _ref$valueOpening;
   var _ref$valueClosing = _ref.valueClosing;
   var valueClosing = _ref$valueClosing === undefined ? '}' : _ref$valueClosing;
   var _ref$keyValueSeparator = _ref.keyValueSeparator;
@@ -117,11 +117,11 @@ exports['default'] = function () {
 
     hasKeyValue: function hasKeyValue(str) {
       // Returns true if all key/value delimiters are found
-      return str.indexOf(keyClosing) !== -1 && str.indexOf(valueClosing) !== -1;
+      return str.indexOf(valueOpening) !== -1 && str.indexOf(valueClosing) !== -1;
     },
 
     pairUp: function pairUp(str) {
-      if (!this.hasKeyValue(str)) return new Error('No key/value pairs found - \n        keyClosing = ' + keyClosing + ', valueClosing = ' + valueClosing);
+      if (!this.hasKeyValue(str)) return new Error('No key/value pairs found - \n        valueOpening = ' + valueOpening + ', valueClosing = ' + valueClosing);
 
       var pair = undefined;
 
@@ -131,7 +131,7 @@ exports['default'] = function () {
         // Drop the closing delimiter
         .slice(0, -1)
         // Split into pair
-        .split(keyClosing);
+        .split(valueOpening);
         // add the trimmed key/value to the reduction object
         prev[pair[0].trim()] = pair[1].trim();
         return prev;

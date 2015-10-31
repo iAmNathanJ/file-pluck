@@ -88,7 +88,7 @@ test('pluck all snippets from file', t => {
   let p = pluck();
 
   p.pluckFile(__dirname + '/test-stylesheet.css')
-  .then( data => t.looseEqual(data, [`name { Base Style }\nhtml { <element class="base"></element> }`, `name { Another Style }\nhtml { <element class="another"></element> }`]) )
+  .then( data => t.looseEqual(data, [`name { Base Style }\n---\nhtml { <element class="base"></element> }`, `name { Another Style }\n---\nhtml { <element class="another"></element> }`]) )
   .catch( err => t.fail(err) )
 
 });
@@ -136,7 +136,7 @@ test('pair up keys/values from snippet', t => {
 
 
 
-test('produce object from key/values in snippet', t => {
+test('return object from key/values in snippet', t => {
 
   let p = pluck();
 
@@ -147,7 +147,7 @@ test('produce object from key/values in snippet', t => {
 
 
 
-test('produce array of objects from all snippets', t => {
+test('return array of objects from all snippets', t => {
 
   let p = pluck()
     

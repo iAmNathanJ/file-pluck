@@ -18,7 +18,7 @@
 `npm i file-pluck`
 
 ## Usage
-Consider the following *text.txt*
+*text.txt*
 ```
 ...blah blah blah
 
@@ -30,8 +30,6 @@ blah blah blah...
 
 blah...
 ```
-
-call `pluckFile` on text.txt
 
 ```node
 import filePluck from 'file-pluck'
@@ -45,7 +43,8 @@ let snippets = p.pluckFile('text.txt');
 
 ---
 
-By default opening and closing delimiters are set as `/***` and `***/`. You can change that to suit your needs. Consider the following *index.html*
+By default opening and closing delimiters are set as `/***` and `***/`. You can change that to suit your needs.  
+*index.html*
 ```html
 <div>
 
@@ -58,8 +57,6 @@ By default opening and closing delimiters are set as `/***` and `***/`. You can 
 </div>
 ```
 
-call `pluckFile` on index.html
-
 ```node
 import filePluck from 'file-pluck'
 
@@ -68,7 +65,55 @@ let p = filePluck({
   closing: '-->'
 });
 
-let snippets = p.pluckFile('text.txt');
+let snippets = p.pluckFile('index.html');
 
 // ['<img src="img1" />', '<img src="img2" />']
+```
+
+---
+
+If you want to break down snippets into key/value pairs, you can do so. This requires delimiters set on key/values. By default, they are valueOpening `{`, valueClosing `}`, and keyValueSeparator `---`.
+*main.css*
+```css
+
+/***
+
+name { base }
+---
+desc { Used for everything. }
+---
+example { <div class="base"></div> }
+
+***/
+
+.base {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/***
+
+className { another-class }
+---
+desc { Not used for everything. }
+---
+example { <div class="another-class"></div> }
+
+***/
+
+.another-class {
+  margin: 2rem;
+}
+
+```
+
+```node
+import filePluck from 'file-pluck'
+
+let p = filePluck();
+
+let snippets = p.pairUpAll('main.css');
+
+// [{name: 'base', desc: 'Used for everything.', example: '<div class="base"></div>'}, {name: 'another-class', desc: 'Not used for everything.', example: '<div class="another-class"></div>'}]
 ```
