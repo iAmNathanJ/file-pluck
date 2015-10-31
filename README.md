@@ -18,7 +18,7 @@
 `npm i file-pluck`
 
 ## Usage
-Consider this file `text.txt`  
+Consider this file *text.txt*
 
 ```
 ...blah blah blah
@@ -32,7 +32,7 @@ blah blah blah...
 blah...
 ```
 
-call `pluckFile` on `text.txt`
+call `pluckFile` on text.txt
 
 ```node
 import filePluck from 'file-pluck'
