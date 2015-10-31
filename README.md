@@ -70,5 +70,5 @@ let p = filePluck({
 
 let snippets = p.pluckFile('text.txt');
 
-// ['pluck me', 'pluck me too']
+// ['<img src="img1" />', '<img src="img2" />']
 ```
