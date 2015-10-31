@@ -9,8 +9,8 @@ export default function({
   valueClosing = '}',
   keyValueSeparator = '---',
   
-  // limit number of key/value return 
-  limit = null,
+  // limit number of returns
+  limit = false,
 
   // output
   output = {
@@ -46,17 +46,26 @@ export default function({
       return delimiterStart(str) !== -1 && snippetEnd(str) !== -1;
     },
 
-    pluck(str) {
+    pluckSingle(str) {
       if(!this.pluckable(str)) return new Error('unpluckable input'); 
       // Returns the first pluckable snippet
       return str.substring(snippetStart(str), snippetEnd(str)).trim();
     },
 
-    pluckAll(str) {
+    pluck(str) {
       let snippets = [];
-      while(this.pluckable(str)) {
-        snippets.push(this.pluck(str));
-        str = str.slice(delimiterEnd(str), str.length)
+
+      if(limit) {
+        let i = limit;
+        while(this.pluckable(str) && i--) {
+          snippets.push(this.pluckSingle(str));
+          str = str.slice(delimiterEnd(str), str.length);
+        }
+      } else {
+        while(this.pluckable(str)) {
+          snippets.push(this.pluckSingle(str));
+          str = str.slice(delimiterEnd(str), str.length);
+        }
       }
       return snippets;
     },
@@ -72,7 +81,7 @@ export default function({
 
     pluckFile(file) {
       return this.read(file)
-      .then( fileContents => this.pluckAll(fileContents) )
+      .then( fileContents => this.pluck(fileContents) )
     },
 
     hasKeyValue(str) {

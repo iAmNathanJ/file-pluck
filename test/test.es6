@@ -20,11 +20,11 @@ test('check for pluckable content', t => {
 
 
 
-test('pluck should be a function', t => {
+test('pluckSingle should be a function', t => {
 
   let p = pluck();
 
-  t.equal(typeof p.pluck, 'function');
+  t.equal(typeof p.pluckSingle, 'function');
 
   t.end();
 });
@@ -35,13 +35,23 @@ test('pluck a string from a string', t => {
 
   let p = pluck();
   
-  t.throws(p.pluck('***'), 'Throws an error on unpluckable content');
-  t.equal(p.pluck('/*** CONTENT ***/'), 'CONTENT');
+  t.throws(p.pluckSingle('***'), 'Throws an error on unpluckable content');
+  t.equal(p.pluckSingle('/*** CONTENT ***/'), 'CONTENT');
 
   t.end();
 });
 
 
+test('set a limit on plucks', t => {
+
+  let p = pluck({
+    limit: 2
+  });
+
+  t.equal(p.pluck('/*** ITEM1 ***/ /*** ITEM2 ***/ /*** ITEM3 ***/').length, 2);
+
+  t.end();
+});
 
 test('read a string from a file', t => {
 
@@ -61,7 +71,7 @@ test('pluck all snippets from a string', t => {
 
   let p = pluck()
     , str = '/*** SNIPPET 1 ***/ /*** SNIPPET 2 ***/'
-    , arr = p.pluckAll(str);
+    , arr = p.pluck(str);
 
   t.ok(Array.isArray(arr), 'pluck all is an array');
   t.looseEqual(arr, ['SNIPPET 1', 'SNIPPET 2']);

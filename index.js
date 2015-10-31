@@ -29,8 +29,8 @@ exports['default'] = function () {
   var _ref$limit = _ref.limit;
   var
 
-  // limit number of key/value return
-  limit = _ref$limit === undefined ? null : _ref$limit;
+  // limit number of returns
+  limit = _ref$limit === undefined ? false : _ref$limit;
   var _ref$output = _ref.output;
   var
 
@@ -74,17 +74,26 @@ exports['default'] = function () {
       return delimiterStart(str) !== -1 && snippetEnd(str) !== -1;
     },
 
-    pluck: function pluck(str) {
+    pluckSingle: function pluckSingle(str) {
       if (!this.pluckable(str)) return new Error('unpluckable input');
       // Returns the first pluckable snippet
       return str.substring(snippetStart(str), snippetEnd(str)).trim();
     },
 
-    pluckAll: function pluckAll(str) {
+    pluck: function pluck(str) {
       var snippets = [];
-      while (this.pluckable(str)) {
-        snippets.push(this.pluck(str));
-        str = str.slice(delimiterEnd(str), str.length);
+
+      if (limit) {
+        var i = limit;
+        while (this.pluckable(str) && i--) {
+          snippets.push(this.pluckSingle(str));
+          str = str.slice(delimiterEnd(str), str.length);
+        }
+      } else {
+        while (this.pluckable(str)) {
+          snippets.push(this.pluckSingle(str));
+          str = str.slice(delimiterEnd(str), str.length);
+        }
       }
       return snippets;
     },
@@ -102,7 +111,7 @@ exports['default'] = function () {
       var _this = this;
 
       return this.read(file).then(function (fileContents) {
-        return _this.pluckAll(fileContents);
+        return _this.pluck(fileContents);
       });
     },
 
