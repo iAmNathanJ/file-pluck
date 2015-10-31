@@ -18,7 +18,7 @@
 `npm i file-pluck`
 
 ## Usage
-The pluckFile function returns a promise. Use it like so...  
+The `pluckFile` function returns a promise that will resolve to an array of "snippets" found within the target file. Use it like so...  
 
 *text.txt*
 ```
