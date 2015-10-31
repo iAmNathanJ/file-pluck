@@ -11,8 +11,8 @@
 
 ### TODO
 - [ ] Write more tests
-- [ ] Usage examples
-- [ ] Add regex to search functions
+- [ ] More Usage examples
+- [ ] Strengthen searching functions regex
 
 ## Install
 `npm i file-pluck`
