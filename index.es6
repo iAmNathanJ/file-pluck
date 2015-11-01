@@ -9,20 +9,6 @@ export default function({
   valueClosing = '}',
   keyValueSeparator = '---',
 
-  // output
-  output = {
-
-    // write json file
-    writeJSON(filename, content) {
-      return new Promise((resolve, reject) => {
-        fs.writeFile(filename, JSON.stringify(content), err => {
-          if(err) reject(err);
-          resolve(true);
-        });
-      });
-    }
-  }
-
 } = {}) {
 
   // Helpers
@@ -38,6 +24,16 @@ export default function({
     snippet: new RegExp(esc(opening) + '(.|\n)*' + esc(closing), 'g'),
     keyValue: new RegExp(esc(valueOpening) + '(.|\n)*' + esc(valueClosing), 'g')
   };
+
+  // write json file
+  let writeJSON = (filename, content) => {
+    return new Promise((resolve, reject) => {
+      fs.writeFile(filename, JSON.stringify(content), err => {
+        if(err) reject(err);
+        resolve(content);
+      });
+    });
+  }
 
   // Module
   return {
@@ -112,7 +108,7 @@ export default function({
       return snippets.map(snippet => this.pairUpSingle(snippet) );
     },
 
-    writeJSON: output.writeJSON
+    writeJSON: writeJSON
   };
 
 }

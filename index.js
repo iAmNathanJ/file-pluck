@@ -26,22 +26,6 @@ exports['default'] = function () {
   var valueClosing = _ref$valueClosing === undefined ? '}' : _ref$valueClosing;
   var _ref$keyValueSeparator = _ref.keyValueSeparator;
   var keyValueSeparator = _ref$keyValueSeparator === undefined ? '---' : _ref$keyValueSeparator;
-  var _ref$output = _ref.output;
-  var
-
-  // output
-  output = _ref$output === undefined ? {
-
-    // write json file
-    writeJSON: function writeJSON(filename, content) {
-      return new Promise(function (resolve, reject) {
-        _fs2['default'].writeFile(filename, JSON.stringify(content), function (err) {
-          if (err) reject(err);
-          resolve(true);
-        });
-      });
-    }
-  } : _ref$output;
 
   // Helpers
   var snippetStart = function snippetStart(str) {
@@ -63,6 +47,16 @@ exports['default'] = function () {
   var pattern = {
     snippet: new RegExp(esc(opening) + '(.|\n)*' + esc(closing), 'g'),
     keyValue: new RegExp(esc(valueOpening) + '(.|\n)*' + esc(valueClosing), 'g')
+  };
+
+  // write json file
+  var writeJSON = function writeJSON(filename, content) {
+    return new Promise(function (resolve, reject) {
+      _fs2['default'].writeFile(filename, JSON.stringify(content), function (err) {
+        if (err) reject(err);
+        resolve(content);
+      });
+    });
   };
 
   // Module
@@ -145,7 +139,7 @@ exports['default'] = function () {
       });
     },
 
-    writeJSON: output.writeJSON
+    writeJSON: writeJSON
   };
 };
 
