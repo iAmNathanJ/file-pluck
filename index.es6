@@ -76,9 +76,9 @@ export default function({
       });
     },
 
-    pluckFile(file) {
+    pluckFile(file, limit) {
       return this.read(file)
-      .then( fileContents => this.pluck(fileContents) )
+      .then( fileContents => this.pluck(fileContents, limit) )
     },
 
     hasKeyValue(str) {

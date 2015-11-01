@@ -157,7 +157,18 @@ Default: `'}'`
 Type: `string`  
 Default: `'---'`  
 
-#### filePluck.pluckable(input) `boolean`
+#### filePluck.pluckable(string)
 Returns true if the input string contains opening and closing delimiters.
 
+#### filePluck.pluck(string, limit)
+Returns an array of strings plucked from input string. Optionally, accepts a limit argument to limit return array length.
+
+#### filePluck.pluckFile(file, limit)
+Returns a promise that resolves to an array of strings. Optionally, accepts a limit argument to limit return array length.
+
+#### filePluck.pairUp(array)
+Maps an input array to an array of JS objects, key value pairs.
+
+#### filePluck.writeJSON(file, obj)
+Writes a javascript object to a json file, returns a promise that resolves to the input object. 
 
