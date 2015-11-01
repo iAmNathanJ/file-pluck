@@ -157,17 +157,17 @@ Default: `'}'`
 Type: `string`  
 Default: `'---'`  
 
-**filePluck.pluckable(string)** <small>returns</small> `boolean`  
+**filePluck.pluckable(string)** `boolean`  
 Returns true if the input string contains opening and closing delimiters.
 
-**filePluck.pluck(string, limit)** <small>returns</small> `array`  
+**filePluck.pluck(string, limit)** `array`  
 Returns an array of strings plucked from input string. Optionally, accepts a limit argument to limit the number of items in the returned array.
 
-**filePluck.pluckFile(file, limit)** <small>returns</small> `promise.then(array => {})`  
+**filePluck.pluckFile(file, limit)** `promise.then(array => {})`  
 Returns a promise that resolves to an array of strings. Optionally, accepts a limit argument to limit the number of items in the returned array.
 
-**filePluck.pairUp(array)** <small>returns</small> `array`  
+**filePluck.pairUp(array)** `array`  
 Maps an input array to an array of JS objects, key value pairs. 
 
-**filePluck.writeJSON(file, object)** <small>returns</small> `promise.then(object => {})`  
+**filePluck.writeJSON(file, object)** `promise.then(object => {})`  
 Writes a javascript object to a json file, returns a promise that resolves to the input object. 
