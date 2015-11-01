@@ -161,14 +161,14 @@ Default: `'---'`
 Returns true if the input string contains opening and closing delimiters.
 
 #### filePluck.pluck(string, limit)
-Returns an array of strings plucked from input string. Optionally, accepts a limit argument to limit return array length.
+Returns an array of strings plucked from input string. Optionally, accepts a limit argument to limit the number of items in the returned array.
 
 #### filePluck.pluckFile(file, limit)
-Returns a promise that resolves to an array of strings. Optionally, accepts a limit argument to limit return array length.
+Returns a promise that resolves to an array of strings. Optionally, accepts a limit argument to limit the number of items in the returned array.
 
 #### filePluck.pairUp(array)
-Maps an input array to an array of JS objects, key value pairs.
+Maps an input array to an array of JS objects, key value pairs. 
 
-#### filePluck.writeJSON(file, obj)
+#### filePluck.writeJSON(file, object)
 Writes a javascript object to a json file, returns a promise that resolves to the input object. 
 

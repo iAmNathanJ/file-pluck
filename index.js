@@ -100,11 +100,11 @@ exports['default'] = function () {
       });
     },
 
-    pluckFile: function pluckFile(file) {
+    pluckFile: function pluckFile(file, limit) {
       var _this = this;
 
       return this.read(file).then(function (fileContents) {
-        return _this.pluck(fileContents);
+        return _this.pluck(fileContents, limit);
       });
     },
 
