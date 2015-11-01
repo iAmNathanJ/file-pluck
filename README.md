@@ -132,3 +132,15 @@ p.pluckFile('main.css')
 
 // [{name: 'base', desc: 'Used for everything.', example: '<div class="base"></div>'}, {name: 'another-class', desc: 'Not used for everything.', example: '<div class="another-class"></div>'}]
 ```
+
+## API
+
+###filePluck([options])
+
+**options.opening**  
+Type: `string`  
+Default: `'/***'`  
+
+**options.closing**  
+Type: `string`  
+Default: `'***/'`  
