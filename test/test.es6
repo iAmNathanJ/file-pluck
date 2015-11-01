@@ -2,6 +2,7 @@ import test from 'tape';
 import pluck from '../';
 
 
+
 test('check for pluckable content', t => {
 
   // TODO
@@ -11,12 +12,22 @@ test('check for pluckable content', t => {
 
   let p = pluck();
 
-  t.notOk(p.pluckable('***'), 'returns false if no delimiters found');
-  t.notOk(p.pluckable('/***'), 'returns false if only one delimiter found');
-  t.notOk(p.pluckable('***/'), 'returns false if only one delimiter found');
-  t.ok(p.pluckable('/*** ***/'), 'returns true if both delimiters found');
+  t.ok(p.pluckable('blah /*** blah ***/ blah'), 'pluckable');
+
+  let p2 = pluck({
+    opening: '^^^',
+    closing: '###'
+  });
+
+  t.ok(p2.pluckable('blah ^^^ blah ### blah'), 'pluckable');
 
   t.end();
+
+  // t.notOk(p.pluckable('***'), 'returns false if no delimiters found');
+  // t.notOk(p.pluckable('/***'), 'returns false if only one delimiter found');
+  // t.notOk(p.pluckable('***/'), 'returns false if only one delimiter found');
+  // t.ok(p.pluckable('/*** ***/'), 'returns true if both delimiters found');
+
 });
 
 

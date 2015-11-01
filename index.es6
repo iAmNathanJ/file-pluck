@@ -26,25 +26,42 @@ export default function({
 } = {}) {
 
   // Helpers
-  let delimiterStart  = (str) => str.indexOf(opening)
-    , snippetStart    = (str) => str.indexOf(opening) + opening.length
-    , snippetEnd      = (str) => str.indexOf(closing)
-    , delimiterEnd    = (str) => str.indexOf(closing) + closing.length;
+  const delimiterStart  = (str) => str.indexOf(opening)
+      , snippetStart    = (str) => str.indexOf(opening) + opening.length
+      , snippetEnd      = (str) => str.indexOf(closing)
+      , delimiterEnd    = (str) => str.indexOf(closing) + closing.length;
 
+  // Regex escape function - allows variables with special characters in expression
+  RegExp.escape = function(s) {
+    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+  };
+
+  // Patterns
+  const pattern = {
+    openingAndClosing: new RegExp(RegExp.escape(opening) + '(.|\n)*' + RegExp.escape(closing), 'g')
+  };
+
+  // Module
   return {
 
     pluckable(str) {
       // Returns true if both opening and closing delimiters are found
-      return delimiterStart(str) !== -1 && snippetEnd(str) !== -1;
+      return str.match(pattern.openingAndClosing);
     },
 
+    // pluckable(str) {
+    //   // Returns true if both opening and closing delimiters are found
+    //   return delimiterStart(str) !== -1 && snippetEnd(str) !== -1;
+    // },
+
     pluckSingle(str) {
-      if(!this.pluckable(str)) return new Error('unpluckable input'); 
       // Returns the first pluckable snippet
       return str.substring(snippetStart(str), snippetEnd(str)).trim();
     },
 
     pluck(str, limit) {
+      // if(!this.pluckable(str)) return new Error('unpluckable input'); 
+
       let snippets = [];
 
       if(limit) {
