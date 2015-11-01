@@ -160,4 +160,4 @@ Default: `'---'`
 ### filePluck.pluckable(input`string`)
 
 Type: `boolean`  
-Returns true if the input string is pluckable
+Returns true if the input string contains opening and closing delimiters.
