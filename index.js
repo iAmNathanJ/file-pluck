@@ -38,12 +38,22 @@ exports['default'] = function () {
   output = _ref$output === undefined ? {
 
     // format function for key values
-    format: function format(key, value) {
+    format: function format(content) {
       return '"' + key + '": "' + value + '"';
     },
 
-    // write formatted file to
+    // write formatted file
     write: function write(filename, content) {
+      return new Promise(function (resolve, reject) {
+        _fs2['default'].writeFile(filename, format(content), function (err) {
+          if (err) reject(err);
+          resolve(true);
+        });
+      });
+    },
+
+    // write json file
+    writeJSON: function writeJSON(filename, content) {
       return new Promise(function (resolve, reject) {
         _fs2['default'].writeFile(filename, JSON.stringify(content), function (err) {
           if (err) reject(err);
@@ -146,7 +156,8 @@ exports['default'] = function () {
       });
     },
 
-    write: output.write
+    write: output.write,
+    writeJSON: output.writeJSON
   };
 };
 

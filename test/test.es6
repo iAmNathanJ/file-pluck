@@ -184,7 +184,7 @@ test('write JSON file', t => {
 
   let compiled = p.pairUpAll(testArr);
   
-  p.write('test/output.json', compiled)
+  p.writeJSON('test/output.json', compiled)
   .then( success => t.pass('Successfully writes json file') )
   .catch( err => t.fail(err) )
 

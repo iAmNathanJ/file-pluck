@@ -16,12 +16,22 @@ export default function({
   output = {
 
     // format function for key values
-    format(key, value) {
+    format(content) {
       return `"${key}": "${value}"`;
     },
     
-    // write formatted file to 
+    // write formatted file
     write(filename, content) {
+      return new Promise((resolve, reject) => {
+        fs.writeFile(filename, format(content), err => {
+          if(err) reject(err);
+          resolve(true);
+        });
+      });
+    },
+
+    // write json file
+    writeJSON(filename, content) {
       return new Promise((resolve, reject) => {
         fs.writeFile(filename, JSON.stringify(content), err => {
           if(err) reject(err);
@@ -111,7 +121,8 @@ export default function({
       return snippets.map(snippet => this.pairUp(snippet) );
     },
 
-    write: output.write
+    write: output.write,
+    writeJSON: output.writeJSON
   };
 
 }
