@@ -26,19 +26,17 @@ export default function({
 } = {}) {
 
   // Helpers
-  const delimiterStart  = (str) => str.indexOf(opening)
-      , snippetStart    = (str) => str.indexOf(opening) + opening.length
+  const snippetStart    = (str) => str.indexOf(opening) + opening.length
       , snippetEnd      = (str) => str.indexOf(closing)
       , delimiterEnd    = (str) => str.indexOf(closing) + closing.length;
 
   // Regex escape function - allows variables with special characters in expression
-  RegExp.escape = function(s) {
-    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-  };
+  const esc = (s) => s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
 
   // Patterns
   const pattern = {
-    openingAndClosing: new RegExp(RegExp.escape(opening) + '(.|\n)*' + RegExp.escape(closing), 'g')
+    snippet: new RegExp(esc(opening) + '(.|\n)*' + esc(closing), 'g'),
+    keyValue: new RegExp(esc(valueOpening) + '(.|\n)*' + esc(valueClosing), 'g')
   };
 
   // Module
@@ -46,13 +44,8 @@ export default function({
 
     pluckable(str) {
       // Returns true if both opening and closing delimiters are found
-      return str.match(pattern.openingAndClosing);
+      return str.match(pattern.snippet);
     },
-
-    // pluckable(str) {
-    //   // Returns true if both opening and closing delimiters are found
-    //   return delimiterStart(str) !== -1 && snippetEnd(str) !== -1;
-    // },
 
     pluckSingle(str) {
       // Returns the first pluckable snippet
@@ -94,7 +87,7 @@ export default function({
 
     hasKeyValue(str) {
       // Returns true if all key/value delimiters are found
-      return str.indexOf(valueOpening) !== -1 && str.indexOf(valueClosing) !== -1;
+      return str.match(pattern.keyValue);
     },
 
     pairUpSingle(str) {
