@@ -157,7 +157,7 @@ Default: `'}'`
 Type: `string`  
 Default: `'---'`  
 
-### filePluck.pluckable(input`string`)
-
-Type: `boolean`  
+#### filePluck.pluckable(input) `boolean`
 Returns true if the input string contains opening and closing delimiters.
+
+
