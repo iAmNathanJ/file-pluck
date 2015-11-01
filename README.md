@@ -10,8 +10,8 @@
 
 ### TODO
 - [ ] Write more tests
+  - [ ] Heavier search functions testing
 - [ ] More Usage examples
-- [ ] Strengthen searching functions regex
 
 ## Install
 `npm i file-pluck`
