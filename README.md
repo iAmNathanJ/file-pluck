@@ -80,7 +80,7 @@ getSnippets.then(snippets => {
 
 ---
 
-If you want to break down snippets into key/value pairs, you can do so. This requires delimiters set on key/values. By default, they are  
+If you want to break down snippets into key/value pairs, you can do so. This requires delimiters set on key/values. By default, they are:  
 `valueOpening: '{'`  
 `valueClosing: '}'`  
 `keyValueSeparator: '---'`  
