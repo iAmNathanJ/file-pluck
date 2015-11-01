@@ -135,7 +135,7 @@ p.pluckFile('main.css')
 
 ## API
 
-###filePluck([options])
+### filePluck([options])
 
 **options.opening**  
 Type: `string`  
@@ -144,3 +144,20 @@ Default: `'/***'`
 **options.closing**  
 Type: `string`  
 Default: `'***/'`  
+
+**options.valueOpening**  
+Type: `string`  
+Default: `'{'`  
+
+**options.valueClosing**  
+Type: `string`  
+Default: `'}'`  
+
+**options.keyValueSeparator**  
+Type: `string`  
+Default: `'---'`  
+
+### filePluck.pluckable(input`string`)
+
+Type: `boolean`  
+Returns true if the input string is pluckable
