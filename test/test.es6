@@ -182,6 +182,12 @@ test('return array of objects from all snippets', t => {
 
 test('write JSON file', t => {
 
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //
+  // ADD TEST FOR ARGS PASSED TO `writeJSON()`
+  //
+  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
   t.plan(1);
 
   let p = pluck()
