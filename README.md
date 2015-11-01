@@ -12,6 +12,7 @@
 - [ ] Write more tests
   - [ ] Heavier search functions testing
 - [ ] More Usage examples
+- [ ] Update read function to accept an array of files
 
 ## Install
 `npm i file-pluck`
