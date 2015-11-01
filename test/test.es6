@@ -5,13 +5,10 @@ import pluck from '../';
 
 test('check for pluckable content', t => {
 
-  // TODO
-  // Add Regex to delimiter testing
-  // File contents of '/***/' will cause problems
-  // Also, if opening and closing delimiters are the same value, that should also cause a problem
-
   let p = pluck();
 
+  t.notOk(p.pluckable('blah /*** blah /*** blah'), 'not pluckable');
+  t.notOk(p.pluckable('/***/'), 'not pluckable')
   t.ok(p.pluckable('blah /*** blah ***/ blah'), 'pluckable');
 
   let p2 = pluck({
@@ -19,14 +16,16 @@ test('check for pluckable content', t => {
     closing: '###'
   });
 
-  t.ok(p2.pluckable('blah ^^^ blah ### blah'), 'pluckable');
+  t.ok(p2.pluckable('blah ^^^ blah ### blah'), 'pluckable with custom delimiters');
+
+  let p3 = pluck({
+    opening: '///',
+    closing: '///'
+  });
+
+  t.ok(p3.pluckable('blah /// blah /// blah'), 'pluckable with equal delimiters');
 
   t.end();
-
-  // t.notOk(p.pluckable('***'), 'returns false if no delimiters found');
-  // t.notOk(p.pluckable('/***'), 'returns false if only one delimiter found');
-  // t.notOk(p.pluckable('***/'), 'returns false if only one delimiter found');
-  // t.ok(p.pluckable('/*** ***/'), 'returns true if both delimiters found');
 
 });
 
@@ -36,7 +35,7 @@ test('pluckSingle should be a function', t => {
 
   let p = pluck();
 
-  t.equal(typeof p.pluckSingle, 'function');
+  t.equal(typeof p.pluckSingle, 'function', 'it is a function');
 
   t.end();
 });
@@ -127,8 +126,19 @@ test('check snippet for key value pairs', t => {
   let p = pluck();
 
   t.notOk(p.hasKeyValue('KEY VALUE'), 'returns false if no delimiters found');
-  t.notOk(p.hasKeyValue('@KEY { VALUE'), 'returns false if partial delimiters found');
-  t.ok(p.hasKeyValue('@KEY { VALUE }'), 'returns true if all delimiters found');
+  t.notOk(p.hasKeyValue('KEY { VALUE'), 'returns false if partial delimiters found');
+  t.ok(p.hasKeyValue('KEY { VALUE }'), 'returns true if all delimiters found');
+
+  // TODO
+  // Add Regex to delimiter testing
+  
+  let p2 = pluck({
+    valueOpening: ':',
+    valueClosing: '.'
+  });
+
+  t.notOk(p2.hasKeyValue('KEY : VALUE'), 'returns false if partial custom delimiters found');
+  t.ok(p2.hasKeyValue('KEY : VALUE.'), 'returns true if all custom delimiters found');
 
   t.end();
 });
