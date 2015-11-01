@@ -26,31 +26,11 @@ exports['default'] = function () {
   var valueClosing = _ref$valueClosing === undefined ? '}' : _ref$valueClosing;
   var _ref$keyValueSeparator = _ref.keyValueSeparator;
   var keyValueSeparator = _ref$keyValueSeparator === undefined ? '---' : _ref$keyValueSeparator;
-  var _ref$limit = _ref.limit;
-  var
-
-  // limit number of returns
-  limit = _ref$limit === undefined ? false : _ref$limit;
   var _ref$output = _ref.output;
   var
 
   // output
   output = _ref$output === undefined ? {
-
-    // format function for key values
-    format: function format(content) {
-      return '"' + key + '": "' + value + '"';
-    },
-
-    // write formatted file
-    write: function write(filename, content) {
-      return new Promise(function (resolve, reject) {
-        _fs2['default'].writeFile(filename, format(content), function (err) {
-          if (err) reject(err);
-          resolve(true);
-        });
-      });
-    },
 
     // write json file
     writeJSON: function writeJSON(filename, content) {
@@ -90,12 +70,11 @@ exports['default'] = function () {
       return str.substring(snippetStart(str), snippetEnd(str)).trim();
     },
 
-    pluck: function pluck(str) {
+    pluck: function pluck(str, limit) {
       var snippets = [];
 
       if (limit) {
-        var i = limit;
-        while (this.pluckable(str) && i--) {
+        while (this.pluckable(str) && limit--) {
           snippets.push(this.pluckSingle(str));
           str = str.slice(delimiterEnd(str), str.length);
         }
@@ -130,7 +109,7 @@ exports['default'] = function () {
       return str.indexOf(valueOpening) !== -1 && str.indexOf(valueClosing) !== -1;
     },
 
-    pairUp: function pairUp(str) {
+    pairUpSingle: function pairUpSingle(str) {
       if (!this.hasKeyValue(str)) return new Error('No key/value pairs found - valueOpening = ' + valueOpening + ', valueClosing = ' + valueClosing);
 
       var pair = undefined;
@@ -148,15 +127,14 @@ exports['default'] = function () {
       }, {});
     },
 
-    pairUpAll: function pairUpAll(snippets) {
+    pairUp: function pairUp(snippets) {
       var _this2 = this;
 
       return snippets.map(function (snippet) {
-        return _this2.pairUp(snippet);
+        return _this2.pairUpSingle(snippet);
       });
     },
 
-    write: output.write,
     writeJSON: output.writeJSON
   };
 };

@@ -46,11 +46,9 @@ test('pluck a string from a string', t => {
 
 test('set a limit on plucks', t => {
 
-  let p = pluck({
-    limit: 2
-  });
+  let p = pluck();
 
-  t.equal(p.pluck('/*** ITEM1 ***/ /*** ITEM2 ***/ /*** ITEM3 ***/').length, 2);
+  t.equal(p.pluck('/*** ITEM1 ***/ /*** ITEM2 ***/ /*** ITEM3 ***/', 2).length, 2);
 
   t.end();
 });
@@ -127,22 +125,12 @@ test('check snippet for key value pairs', t => {
 
 
 
-test('pair up keys/values from snippet', t => {
+test('pair up single key/value from snippet', t => {
 
   let p = pluck();
 
-  t.throws(p.pairUp('KEYVALUE'), 'Throws an error when no key/value pair can be found');
-
-  t.end();
-});
-
-
-
-test('return object from key/values in snippet', t => {
-
-  let p = pluck();
-
-  t.looseEquals(p.pairUp('key1 { VALUE1 } --- key2 { VALUE2 }'), {key1: 'VALUE1', key2: 'VALUE2'});
+  t.throws(p.pairUpSingle('KEYVALUE'), 'Throws an error when no key/value pair can be found');
+  t.looseEqual(p.pairUpSingle('KEY { VALUE }'), { KEY: 'VALUE' });
 
   t.end();
 });
@@ -161,7 +149,7 @@ test('return array of objects from all snippets', t => {
       { key1: 'VALUE1', key2: 'VALUE2' },
       { key1: 'VALUE1', key2: 'VALUE2' }];
 
-  t.looseEquals(p.pairUpAll(testArr), shouldBeEqual);
+  t.looseEqual(p.pairUp(testArr), shouldBeEqual);
 
   t.end();
 });
@@ -182,27 +170,10 @@ test('write JSON file', t => {
       { key1: 'VALUE1', key2: 'VALUE2' },
       { key1: 'VALUE1', key2: 'VALUE2' }];
 
-  let compiled = p.pairUpAll(testArr);
+  let compiled = p.pairUp(testArr);
   
   p.writeJSON('test/output.json', compiled)
   .then( success => t.pass('Successfully writes json file') )
   .catch( err => t.fail(err) )
 
-});
-
-
-
-test('output should format key/value pairs according to override', {skip: true}, t => {
-
-  let p = pluck({
-    output: {
-      format(key, value) {
-        return `{{${key}}} / {{${value}}}`;
-      }
-    }
-  });
-
-  t.equal(p.output.format('name', 'nate'), '{{name}} / {{nate}}');
-
-  t.end();
 });

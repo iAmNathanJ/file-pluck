@@ -8,27 +8,9 @@ export default function({
   valueOpening = '{',
   valueClosing = '}',
   keyValueSeparator = '---',
-  
-  // limit number of returns
-  limit = false,
 
   // output
   output = {
-
-    // format function for key values
-    format(content) {
-      return `"${key}": "${value}"`;
-    },
-    
-    // write formatted file
-    write(filename, content) {
-      return new Promise((resolve, reject) => {
-        fs.writeFile(filename, format(content), err => {
-          if(err) reject(err);
-          resolve(true);
-        });
-      });
-    },
 
     // write json file
     writeJSON(filename, content) {
@@ -62,12 +44,11 @@ export default function({
       return str.substring(snippetStart(str), snippetEnd(str)).trim();
     },
 
-    pluck(str) {
+    pluck(str, limit) {
       let snippets = [];
 
       if(limit) {
-        let i = limit;
-        while(this.pluckable(str) && i--) {
+        while(this.pluckable(str) && limit--) {
           snippets.push(this.pluckSingle(str));
           str = str.slice(delimiterEnd(str), str.length);
         }
@@ -99,7 +80,7 @@ export default function({
       return str.indexOf(valueOpening) !== -1 && str.indexOf(valueClosing) !== -1;
     },
 
-    pairUp(str) {
+    pairUpSingle(str) {
       if(!this.hasKeyValue(str)) return new Error(`No key/value pairs found - valueOpening = ${valueOpening}, valueClosing = ${valueClosing}`);
       
       let pair;
@@ -117,11 +98,10 @@ export default function({
       }, {});
     },
 
-    pairUpAll(snippets) {
-      return snippets.map(snippet => this.pairUp(snippet) );
+    pairUp(snippets) {
+      return snippets.map(snippet => this.pairUpSingle(snippet) );
     },
 
-    write: output.write,
     writeJSON: output.writeJSON
   };
 
