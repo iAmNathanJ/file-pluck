@@ -2,7 +2,6 @@ import test from 'tape';
 import pluck from '../';
 
 
-
 test('check for pluckable content', t => {
 
   // TODO
@@ -37,8 +36,8 @@ test('pluck a string from a string', t => {
 
   let p = pluck();
   
-  t.throws(p.pluckSingle('***'), 'Throws an error on unpluckable content');
-  t.equal(p.pluckSingle('/*** CONTENT ***/'), 'CONTENT');
+  t.throws(p.pluckSingle('***'), 'throws an error on unpluckable content');
+  t.equal(p.pluckSingle('/*** CONTENT ***/'), 'CONTENT', 'successfully plucks from string');
 
   t.end();
 });
@@ -48,7 +47,7 @@ test('set a limit on plucks', t => {
 
   let p = pluck();
 
-  t.equal(p.pluck('/*** ITEM1 ***/ /*** ITEM2 ***/ /*** ITEM3 ***/', 2).length, 2);
+  t.equal(p.pluck('/*** ITEM1 ***/ /*** ITEM2 ***/ /*** ITEM3 ***/', 2).length, 2, 'limit works');
 
   t.end();
 });
@@ -60,7 +59,7 @@ test('read a string from a file', t => {
   let p = pluck();
   
   p.read(__dirname + '/test-string.css')
-  .then( str => t.equal(str, 'test-string') )
+  .then( str => t.equal(str, 'test-string', 'successfully reads file') )
   .catch( err => t.fail(err) );
 
 });
@@ -74,7 +73,7 @@ test('pluck all snippets from a string', t => {
     , arr = p.pluck(str);
 
   t.ok(Array.isArray(arr), 'pluck all is an array');
-  t.looseEqual(arr, ['SNIPPET 1', 'SNIPPET 2']);
+  t.looseEqual(arr, ['SNIPPET 1', 'SNIPPET 2'], 'contains the values expected');
 
   t.end();
 });
@@ -88,7 +87,7 @@ test('pluck all snippets from file', t => {
   let p = pluck();
 
   p.pluckFile(__dirname + '/test-stylesheet.css')
-  .then( data => t.looseEqual(data, [`name { Base Style }\n---\nhtml { <element class="base"></element> }`, `name { Another Style }\n---\nhtml { <element class="another"></element> }`]) )
+  .then( data => t.looseEqual(data, [`name { Base Style }\n---\nhtml { <element class="base"></element> }`, `name { Another Style }\n---\nhtml { <element class="another"></element> }`], 'successfully returns an array of snippets') )
   .catch( err => t.fail(err) )
 
 });
@@ -105,7 +104,7 @@ test('pluck all snippets from file with custom delimiters', t => {
   });
 
   p.pluckFile(__dirname + '/test-stylesheet2.css')
-  .then( data => t.looseEqual(data, [`name { Base Style }\nhtml { <element class="base"></element> }`, `name { Another Style }\nhtml { <element class="another"></element> }`]) )
+  .then( data => t.looseEqual(data, [`name { Base Style }\nhtml { <element class="base"></element> }`, `name { Another Style }\nhtml { <element class="another"></element> }`], 'custom delimiters ok') )
   .catch( err => t.fail(err) )
 
 });
@@ -130,7 +129,7 @@ test('pair up single key/value from snippet', t => {
   let p = pluck();
 
   t.throws(p.pairUpSingle('KEYVALUE'), 'Throws an error when no key/value pair can be found');
-  t.looseEqual(p.pairUpSingle('KEY { VALUE }'), { KEY: 'VALUE' });
+  t.looseEqual(p.pairUpSingle('KEY { VALUE }'), { KEY: 'VALUE' }, 'successfully splits snippet into keys/values');
 
   t.end();
 });
@@ -149,7 +148,7 @@ test('return array of objects from all snippets', t => {
       { key1: 'VALUE1', key2: 'VALUE2' },
       { key1: 'VALUE1', key2: 'VALUE2' }];
 
-  t.looseEqual(p.pairUp(testArr), shouldBeEqual);
+  t.looseEqual(p.pairUp(testArr), shouldBeEqual, 'returns an array of all snippets as key/val objects');
 
   t.end();
 });
