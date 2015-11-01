@@ -171,4 +171,3 @@ Maps an input array to an array of JS objects, key value pairs.
 
 #### filePluck.writeJSON(file, object)
 Writes a javascript object to a json file, returns a promise that resolves to the input object. 
-
