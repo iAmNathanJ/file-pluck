@@ -76,7 +76,7 @@ test('read a string from a file', t => {
 
 
 
-test('pluck all snippets from a string', t => {
+test('pluck snippets from a string', t => {
 
   let p = pluck()
     , str = '/*** SNIPPET 1 ***/ /*** SNIPPET 2 ***/'
@@ -90,14 +90,18 @@ test('pluck all snippets from a string', t => {
 
 
 
-test('pluck all snippets from file', t => {
+test('pluck snippets from file', t => {
 
-  t.plan(1);
+  t.plan(2);
 
   let p = pluck();
 
   p.pluckFile(__dirname + '/test-stylesheet.css')
   .then( data => t.looseEqual(data, [`name { Base Style }\n---\nhtml { <element class="base"></element> }`, `name { Another Style }\n---\nhtml { <element class="another"></element> }`], 'successfully returns an array of snippets') )
+  .catch( err => t.fail(err) )
+
+  p.pluckFile(__dirname + '/test-stylesheet.css', 1)
+  .then( data => t.looseEqual(data, [`name { Base Style }\n---\nhtml { <element class="base"></element> }`], 'limit returned snippets') )
   .catch( err => t.fail(err) )
 
 });
