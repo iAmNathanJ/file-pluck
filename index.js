@@ -24,8 +24,6 @@ exports['default'] = function () {
   var valueOpening = _ref$valueOpening === undefined ? '{' : _ref$valueOpening;
   var _ref$valueClosing = _ref.valueClosing;
   var valueClosing = _ref$valueClosing === undefined ? '}' : _ref$valueClosing;
-  var _ref$keyValueSeparator = _ref.keyValueSeparator;
-  var keyValueSeparator = _ref$keyValueSeparator === undefined ? '---' : _ref$keyValueSeparator;
 
   // Helpers
   var snippetStart = function snippetStart(str) {
@@ -46,7 +44,7 @@ exports['default'] = function () {
   // Patterns
   var pattern = {
     snippet: new RegExp(esc(opening) + '(.|\n)*' + esc(closing), 'g'),
-    keyValue: new RegExp(esc(valueOpening) + '(.|\n)*' + esc(valueClosing), 'g')
+    keyValue: new RegExp('(.|\n)*' + esc(valueOpening) + '(.|\n)*', 'g')
   };
 
   // write json file
@@ -116,17 +114,14 @@ exports['default'] = function () {
     pairUpSingle: function pairUpSingle(str) {
       var _this2 = this;
 
-      // if(!this.hasKeyValue(str)) return new Error(`No key/value pairs found - valueOpening = ${valueOpening}, valueClosing = ${valueClosing}`);
-
       var pair = undefined;
 
-      return str.split(keyValueSeparator).reduce(function (prev, cur) {
+      return str.split(valueClosing).reduce(function (prev, cur) {
 
-        // Skip this item if its blank
+        // Skip this item if its blank or if it doesn't have qualifying delimiters
         if (!cur || !_this2.hasKeyValue(cur)) return prev;
 
         pair = cur.trim() // Trim the string
-        .slice(0, -1) // Drop the closing delimiter
         .split(valueOpening); // Split into pair
 
         // trim and add the pair to the reduction object

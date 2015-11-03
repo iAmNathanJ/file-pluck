@@ -7,8 +7,7 @@ export default function({
   closing = '***/',
   valueOpening = '{',
   valueClosing = '}',
-  keyValueSeparator = '---',
-
+  
 } = {}) {
 
   // Helpers
@@ -22,7 +21,7 @@ export default function({
   // Patterns
   const pattern = {
     snippet: new RegExp(esc(opening) + '(.|\n)*' + esc(closing), 'g'),
-    keyValue: new RegExp(esc(valueOpening) + '(.|\n)*' + esc(valueClosing), 'g')
+    keyValue: new RegExp('(.|\n)*' + esc(valueOpening) + '(.|\n)*', 'g')
   };
 
   // write json file
@@ -90,13 +89,12 @@ export default function({
       
       let pair;
 
-      return str.split(keyValueSeparator).reduce((prev, cur) => {
+      return str.split(valueClosing).reduce((prev, cur) => {
         
         // Skip this item if its blank or if it doesn't have qualifying delimiters
         if(!cur || !this.hasKeyValue(cur)) return prev;
         
         pair = cur.trim()     // Trim the string
-        .slice(0, -1)         // Drop the closing delimiter
         .split(valueOpening); // Split into pair
         
         // trim and add the pair to the reduction object

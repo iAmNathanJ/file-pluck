@@ -97,11 +97,11 @@ test('pluck snippets from file', t => {
   let p = pluck();
 
   p.pluckFile(__dirname + '/test-stylesheet.css')
-  .then( data => t.looseEqual(data, [`name { Base Style }\n---\nhtml { <element class="base"></element> }`, `name { Another Style }\n---\nhtml { <element class="another"></element> }`], 'successfully returns an array of snippets') )
+  .then( data => t.looseEqual(data, [`name { Base Style }\n\nhtml { <element class="base"></element> }`, `name { Another Style }\n\nhtml { <element class="another"></element> }`], 'successfully returns an array of snippets') )
   .catch( err => t.fail(err) )
 
   p.pluckFile(__dirname + '/test-stylesheet.css', 1)
-  .then( data => t.looseEqual(data, [`name { Base Style }\n---\nhtml { <element class="base"></element> }`], 'limit returned snippets') )
+  .then( data => t.looseEqual(data, [`name { Base Style }\n\nhtml { <element class="base"></element> }`], 'limit returned snippets') )
   .catch( err => t.fail(err) )
 
 });
@@ -118,7 +118,7 @@ test('pluck all snippets from file with custom delimiters', t => {
   });
 
   p.pluckFile(__dirname + '/test-stylesheet2.css')
-  .then( data => t.looseEqual(data, [`name { Base Style }\nhtml { <element class="base"></element> }`, `name { Another Style }\nhtml { <element class="another"></element> }`], 'custom delimiters ok') )
+  .then( data => t.looseEqual(data, [`name { Base Style }\n\nhtml { <element class="base"></element> }`, `name { Another Style }\n\nhtml { <element class="another"></element> }`], 'custom delimiters ok') )
   .catch( err => t.fail(err) )
 
 });
@@ -130,8 +130,7 @@ test('check snippet for key value pairs', t => {
   let p = pluck();
 
   t.notOk(p.hasKeyValue('KEY VALUE'), 'returns false if no delimiters found');
-  t.notOk(p.hasKeyValue('KEY { VALUE'), 'returns false if partial delimiters found');
-  t.ok(p.hasKeyValue('KEY { VALUE }'), 'returns true if all delimiters found');
+  t.ok(p.hasKeyValue('KEY { VALUE'), 'returns true if delimiters found');
 
   // TODO
   // Add Regex to delimiter testing
@@ -141,8 +140,8 @@ test('check snippet for key value pairs', t => {
     valueClosing: '.'
   });
 
-  t.notOk(p2.hasKeyValue('KEY : VALUE'), 'returns false if partial custom delimiters found');
-  t.ok(p2.hasKeyValue('KEY : VALUE.'), 'returns true if all custom delimiters found');
+  t.notOk(p2.hasKeyValue('KEY VALUE'), 'returns false if no delimiters found');
+  t.ok(p2.hasKeyValue('KEY : VALUE'), 'returns true if custom delimiters found');
 
   t.end();
 });
@@ -166,8 +165,8 @@ test('return array of objects from all snippets', t => {
   let p = pluck()
     
     , testArr = [
-      'key1 { VALUE1 } --- key2 { VALUE2 }',
-      'key1 { VALUE1 } --- key2 { VALUE2 }']
+      'key1 { VALUE1 } key2 { VALUE2 }',
+      'key1 { VALUE1 } key2 { VALUE2 }']
     
     , shouldBeEqual = [
       { key1: 'VALUE1', key2: 'VALUE2' },
@@ -193,8 +192,8 @@ test('write JSON file', t => {
   let p = pluck()
     
     , testArr = [
-      'key1 { VALUE1 } --- key2 { VALUE2 }',
-      'key1 { VALUE1 } --- key2 { VALUE2 }']
+      'key1 { VALUE1 } key2 { VALUE2 }',
+      'key1 { VALUE1 } key2 { VALUE2 }']
     
     , shouldBeEqual = [
       { key1: 'VALUE1', key2: 'VALUE2' },
