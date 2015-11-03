@@ -92,9 +92,7 @@ If you want to break down snippets into key/value pairs, you can do so. This req
 /***
 
 name { base }
----
 desc { Used for everything. }
----
 example { <div class="base"></div> }
 
 ***/
@@ -108,9 +106,7 @@ example { <div class="base"></div> }
 /***
 
 name { another-class }
----
 desc { Not used for everything. }
----
 example { <div class="another-class"></div> }
 
 ***/
@@ -153,10 +149,6 @@ Default: `'{'`
 **options.valueClosing**  
 Type: `string`  
 Default: `'}'`  
-
-**options.keyValueSeparator**  
-Type: `string`  
-Default: `'---'`  
 
 **filePluck.pluckable(string)** `boolean`  
 Returns true if the input string contains opening and closing delimiters.
