@@ -49,7 +49,7 @@ export default function({
     },
 
     pluck(str, limit) {
-      // if(!this.pluckable(str)) return new Error('unpluckable input'); 
+      if(!this.pluckable(str)) return new Error('unpluckable input'); 
 
       let snippets = [];
 
@@ -87,20 +87,22 @@ export default function({
     },
 
     pairUpSingle(str) {
-      if(!this.hasKeyValue(str)) return new Error(`No key/value pairs found - valueOpening = ${valueOpening}, valueClosing = ${valueClosing}`);
       
       let pair;
 
       return str.split(keyValueSeparator).reduce((prev, cur) => {
-        // Trim the string
-        pair = cur.trim()
-          // Drop the closing delimiter
-          .slice(0, -1)
-          // Split into pair
-          .split(valueOpening);
-        // add the trimmed key/value to the reduction object
+        
+        // Skip this item if its blank or if it doesn't have qualifying delimiters
+        if(!cur || !this.hasKeyValue(cur)) return prev;
+        
+        pair = cur.trim()     // Trim the string
+        .slice(0, -1)         // Drop the closing delimiter
+        .split(valueOpening); // Split into pair
+        
+        // trim and add the pair to the reduction object
         prev[pair[0].trim()] = pair[1].trim()
         return prev;
+      
       }, {});
     },
 

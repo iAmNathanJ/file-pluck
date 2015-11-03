@@ -73,7 +73,7 @@ exports['default'] = function () {
     },
 
     pluck: function pluck(str, limit) {
-      // if(!this.pluckable(str)) return new Error('unpluckable input');
+      if (!this.pluckable(str)) return new Error('unpluckable input');
 
       var snippets = [];
 
@@ -114,28 +114,32 @@ exports['default'] = function () {
     },
 
     pairUpSingle: function pairUpSingle(str) {
-      if (!this.hasKeyValue(str)) return new Error('No key/value pairs found - valueOpening = ' + valueOpening + ', valueClosing = ' + valueClosing);
+      var _this2 = this;
+
+      // if(!this.hasKeyValue(str)) return new Error(`No key/value pairs found - valueOpening = ${valueOpening}, valueClosing = ${valueClosing}`);
 
       var pair = undefined;
 
       return str.split(keyValueSeparator).reduce(function (prev, cur) {
-        // Trim the string
-        pair = cur.trim()
-        // Drop the closing delimiter
-        .slice(0, -1)
-        // Split into pair
-        .split(valueOpening);
-        // add the trimmed key/value to the reduction object
+
+        // Skip this item if its blank
+        if (!cur || !_this2.hasKeyValue(cur)) return prev;
+
+        pair = cur.trim() // Trim the string
+        .slice(0, -1) // Drop the closing delimiter
+        .split(valueOpening); // Split into pair
+
+        // trim and add the pair to the reduction object
         prev[pair[0].trim()] = pair[1].trim();
         return prev;
       }, {});
     },
 
     pairUp: function pairUp(snippets) {
-      var _this2 = this;
+      var _this3 = this;
 
       return snippets.map(function (snippet) {
-        return _this2.pairUpSingle(snippet);
+        return _this3.pairUpSingle(snippet);
       });
     },
 
