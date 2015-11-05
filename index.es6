@@ -25,9 +25,13 @@ export default function({
   };
 
   // write json file
-  let writeJSON = (filename, content) => {
+  let writeJSON = (filename, obj) => {
+    
     return new Promise((resolve, reject) => {
-      fs.writeFile(filename, JSON.stringify(content), err => {
+      
+      if(!Object.is(obj)) resolve(new Error('writeJSON requires the second argument to be an object'));
+      
+      fs.writeFile(filename, JSON.stringify(obj), err => {
         if(err) reject(err);
         resolve(content);
       });

@@ -48,9 +48,13 @@ exports['default'] = function () {
   };
 
   // write json file
-  var writeJSON = function writeJSON(filename, content) {
+  var writeJSON = function writeJSON(filename, obj) {
+
     return new Promise(function (resolve, reject) {
-      _fs2['default'].writeFile(filename, JSON.stringify(content), function (err) {
+
+      if (!Object.is(obj)) resolve(new Error('writeJSON requires the second argument to be an object'));
+
+      _fs2['default'].writeFile(filename, JSON.stringify(obj), function (err) {
         if (err) reject(err);
         resolve(content);
       });

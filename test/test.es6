@@ -182,16 +182,18 @@ test('return array of objects from all snippets', t => {
 test('write JSON file', t => {
 
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  //
+  // 
   // ADD TEST FOR ARGS PASSED TO `writeJSON()`
   //
   // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-  t.plan(1);
+  t.plan(2);
 
-  let p = pluck()
+  let p = pluck();
     
-    , testArr = [
+  t.throws(p.writeJSON('not an object'), 'throws an error if arg 2 is not an object');
+
+  let testArr = [
       'key1 { VALUE1 } key2 { VALUE2 }',
       'key1 { VALUE1 } key2 { VALUE2 }']
     
@@ -200,8 +202,8 @@ test('write JSON file', t => {
       { key1: 'VALUE1', key2: 'VALUE2' }];
 
   let compiled = p.pairUp(testArr);
-  
+
   p.writeJSON('test/output.json', compiled)
   .then( data => t.pass('Successfully writes json file') )
-  .catch( err => t.fail(err) )
+  .catch( err => t.fail(err) );
 });
