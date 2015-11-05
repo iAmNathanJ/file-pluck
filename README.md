@@ -152,10 +152,10 @@ Default: `'}'`
 **filePluck.pluckable(string)** `boolean`  
 Returns true if the input string contains opening and closing delimiters.
 
-**filePluck.pluck(string, limit)** `array`  
+**filePluck.pluck(string, [limit])** `array`  
 Returns an array of strings plucked from input string. Optionally, accepts a limit argument to limit the number of items in the returned array.
 
-**filePluck.pluckFile(file, limit)** `promise.then(array => {})`  
+**filePluck.pluckFile(file, [limit])** `promise.then(array => {})`  
 Returns a promise that resolves to an array of strings. Optionally, accepts a limit argument to limit the number of items in the returned array.
 
 **filePluck.pairUp(array)** `array`  
