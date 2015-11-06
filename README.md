@@ -9,10 +9,8 @@
 - Optionally, output a file in JSON format
 
 ### TODO
-- [ ] Write more tests
-  - [ ] Heavier search functions testing
+- [ ] Heavier search functions testing
 - [ ] More Usage examples
-- [ ] Update read function to accept an array of files
 
 ## Install
 `npm i file-pluck`
@@ -157,6 +155,9 @@ Returns an array of strings plucked from input string. Optionally, accepts a lim
 
 **filePluck.pluckFile(file, [limit])** `promise.then(array => {})`  
 Returns a promise that resolves to an array of strings. Optionally, accepts a limit argument to limit the number of items in the returned array.
+
+**filePluck.pluckFiles(array)** `promise.then(array => {})`  
+Note the plural, pluckFile*s*. This accepts and array of files and returns a promise that resolves to an array of strings.
 
 **filePluck.pairUp(array)** `array`  
 Maps an input array to an array of JS objects, key value pairs. 

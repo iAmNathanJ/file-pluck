@@ -26,7 +26,9 @@ export default function({
 
   // read file, return promise
   const read = (file) => {
+
     return new Promise((resolve, reject) => {
+      
       fs.readFile(file, 'utf-8', (err, fileContent) => {  
         if(err) reject(err);
         resolve(fileContent);
