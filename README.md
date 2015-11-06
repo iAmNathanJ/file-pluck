@@ -11,6 +11,7 @@
 ### TODO
 - [ ] Heavier search functions testing
 - [ ] More Usage examples
+- [ ] Add support for file globbs
 
 ## Install
 `npm i file-pluck`
