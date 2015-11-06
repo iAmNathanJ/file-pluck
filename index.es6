@@ -33,10 +33,10 @@ export default function({
       
       fs.writeFile(filename, JSON.stringify(obj), err => {
         if(err) reject(err);
-        resolve(content);
+        resolve(obj);
       });
     });
-  }
+  };
 
   // Module
   return {
@@ -72,16 +72,33 @@ export default function({
     
     read(file) {
       return new Promise((resolve, reject) => {
-        fs.readFile(file, 'utf-8', (err, data) => {  
+        fs.readFile(file, 'utf-8', (err, fileContent) => {  
           if(err) reject(err);
-          resolve(data);
+          resolve(fileContent);
         });
       });
     },
 
     pluckFile(file, limit) {
       return this.read(file)
-      .then( fileContents => this.pluck(fileContents, limit) )
+      .then(fileContent => this.pluck(fileContent, limit) );
+    },
+
+    pluckFiles(files) {
+      
+      // Map files to an array of promises - read() returns a promise
+      let allFiles = files.map( file => this.read(file) );
+      
+      // return promise
+      return Promise.all(allFiles)
+      .then(allFileContents => {
+        
+        // reduce all files to flat array of plucked content 
+        return allFileContents.reduce((prev, cur) => {
+          return prev.concat( this.pluck(cur) );
+        }, []);
+      
+      });
     },
 
     hasKeyValue(str) {

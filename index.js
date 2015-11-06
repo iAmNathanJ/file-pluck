@@ -56,7 +56,7 @@ exports['default'] = function () {
 
       _fs2['default'].writeFile(filename, JSON.stringify(obj), function (err) {
         if (err) reject(err);
-        resolve(content);
+        resolve(obj);
       });
     });
   };
@@ -95,9 +95,9 @@ exports['default'] = function () {
 
     read: function read(file) {
       return new Promise(function (resolve, reject) {
-        _fs2['default'].readFile(file, 'utf-8', function (err, data) {
+        _fs2['default'].readFile(file, 'utf-8', function (err, fileContent) {
           if (err) reject(err);
-          resolve(data);
+          resolve(fileContent);
         });
       });
     },
@@ -105,8 +105,26 @@ exports['default'] = function () {
     pluckFile: function pluckFile(file, limit) {
       var _this = this;
 
-      return this.read(file).then(function (fileContents) {
-        return _this.pluck(fileContents, limit);
+      return this.read(file).then(function (fileContent) {
+        return _this.pluck(fileContent, limit);
+      });
+    },
+
+    pluckFiles: function pluckFiles(files) {
+      var _this2 = this;
+
+      // Map files to an array of promises - read() returns a promise
+      var allFiles = files.map(function (file) {
+        return _this2.read(file);
+      });
+
+      // return promise
+      return Promise.all(allFiles).then(function (allFileContents) {
+
+        // reduce all files to flat array of plucked content
+        return allFileContents.reduce(function (prev, cur) {
+          return prev.concat(_this2.pluck(cur));
+        }, []);
       });
     },
 
@@ -116,14 +134,14 @@ exports['default'] = function () {
     },
 
     pairUpSingle: function pairUpSingle(str) {
-      var _this2 = this;
+      var _this3 = this;
 
       var pair = undefined;
 
       return str.split(valueClosing).reduce(function (prev, cur) {
 
         // Skip this item if its blank or if it doesn't have qualifying delimiters
-        if (!cur || !_this2.hasKeyValue(cur)) return prev;
+        if (!cur || !_this3.hasKeyValue(cur)) return prev;
 
         pair = cur.trim() // Trim the string
         .split(valueOpening); // Split into pair
@@ -135,10 +153,10 @@ exports['default'] = function () {
     },
 
     pairUp: function pairUp(snippets) {
-      var _this3 = this;
+      var _this4 = this;
 
       return snippets.map(function (snippet) {
-        return _this3.pairUpSingle(snippet);
+        return _this4.pairUpSingle(snippet);
       });
     },
 

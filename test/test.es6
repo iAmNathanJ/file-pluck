@@ -179,13 +179,26 @@ test('return array of objects from all snippets', t => {
 
 
 
-test('write JSON file', t => {
+test('read and pluck array of files', t => {
+  
+  t.plan(1);
+  
+  let p = pluck()
+    
+    , files = [
+      `${__dirname}/test-stylesheet.css`,
+      `${__dirname}/test-stylesheet3.css`
+    ];
 
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  // 
-  // ADD TEST FOR ARGS PASSED TO `writeJSON()`
-  //
-  // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  p.pluckFiles(files)
+  .then( data => t.looseEqual(data, [`name { Base Style }\n\nhtml { <element class="base"></element> }`, `name { Another Style }\n\nhtml { <element class="another"></element> }`, `name { SS3 Base Style }\n\nhtml { <element class="base"></element> }`, `name { SS3 Another Style }\n\nhtml { <element class="another"></element> }`], 'successfully returns an array of snippets') )
+  .catch( err => t.fail(err) );
+
+});
+
+
+
+test('write JSON file', t => {
 
   t.plan(2);
 
