@@ -181,6 +181,8 @@ test('return array of objects from all snippets', t => {
 
 test('read and pluck array of files', t => {
   
+  // ADD throw error if input file does not exist
+
   t.plan(1);
   
   let p = pluck()

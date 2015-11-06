@@ -47,7 +47,17 @@ exports['default'] = function () {
     keyValue: new RegExp('(.|\n)*' + esc(valueOpening) + '(.|\n)*', 'g')
   };
 
-  // write json file
+  // read file, return promise
+  var read = function read(file) {
+    return new Promise(function (resolve, reject) {
+      _fs2['default'].readFile(file, 'utf-8', function (err, fileContent) {
+        if (err) reject(err);
+        resolve(fileContent);
+      });
+    });
+  };
+
+  // write json file, return promise
   var writeJSON = function writeJSON(filename, obj) {
 
     return new Promise(function (resolve, reject) {
@@ -93,19 +103,10 @@ exports['default'] = function () {
       return snippets;
     },
 
-    read: function read(file) {
-      return new Promise(function (resolve, reject) {
-        _fs2['default'].readFile(file, 'utf-8', function (err, fileContent) {
-          if (err) reject(err);
-          resolve(fileContent);
-        });
-      });
-    },
-
     pluckFile: function pluckFile(file, limit) {
       var _this = this;
 
-      return this.read(file).then(function (fileContent) {
+      return read(file).then(function (fileContent) {
         return _this.pluck(fileContent, limit);
       });
     },
@@ -115,7 +116,7 @@ exports['default'] = function () {
 
       // Map files to an array of promises - read() returns a promise
       var allFiles = files.map(function (file) {
-        return _this2.read(file);
+        return _this2.pluckFile(file);
       });
 
       // return promise
@@ -123,7 +124,7 @@ exports['default'] = function () {
 
         // reduce all files to flat array of plucked content
         return allFileContents.reduce(function (prev, cur) {
-          return prev.concat(_this2.pluck(cur));
+          return prev.concat(cur);
         }, []);
       });
     },
@@ -160,6 +161,7 @@ exports['default'] = function () {
       });
     },
 
+    read: read,
     writeJSON: writeJSON
   };
 };

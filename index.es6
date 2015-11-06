@@ -24,8 +24,18 @@ export default function({
     keyValue: new RegExp('(.|\n)*' + esc(valueOpening) + '(.|\n)*', 'g')
   };
 
-  // write json file
-  let writeJSON = (filename, obj) => {
+  // read file, return promise
+  const read = (file) => {
+    return new Promise((resolve, reject) => {
+      fs.readFile(file, 'utf-8', (err, fileContent) => {  
+        if(err) reject(err);
+        resolve(fileContent);
+      });
+    });
+  };
+
+  // write json file, return promise
+  const writeJSON = (filename, obj) => {
     
     return new Promise((resolve, reject) => {
       
@@ -69,25 +79,16 @@ export default function({
       }
       return snippets;
     },
-    
-    read(file) {
-      return new Promise((resolve, reject) => {
-        fs.readFile(file, 'utf-8', (err, fileContent) => {  
-          if(err) reject(err);
-          resolve(fileContent);
-        });
-      });
-    },
 
     pluckFile(file, limit) {
-      return this.read(file)
+      return read(file)
       .then(fileContent => this.pluck(fileContent, limit) );
     },
 
     pluckFiles(files) {
       
       // Map files to an array of promises - read() returns a promise
-      let allFiles = files.map( file => this.read(file) );
+      let allFiles = files.map( file => this.pluckFile(file) );
       
       // return promise
       return Promise.all(allFiles)
@@ -95,7 +96,7 @@ export default function({
         
         // reduce all files to flat array of plucked content 
         return allFileContents.reduce((prev, cur) => {
-          return prev.concat( this.pluck(cur) );
+          return prev.concat(cur);
         }, []);
       
       });
@@ -129,6 +130,7 @@ export default function({
       return snippets.map(snippet => this.pairUpSingle(snippet) );
     },
 
+    read: read,
     writeJSON: writeJSON
   };
 
