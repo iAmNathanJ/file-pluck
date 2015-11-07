@@ -10,6 +10,10 @@ var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
 
+var _glob = require('glob');
+
+var _glob2 = _interopRequireDefault(_glob);
+
 exports['default'] = function () {
   var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
@@ -47,9 +51,10 @@ exports['default'] = function () {
     keyValue: new RegExp('(.|\n)*' + esc(valueOpening) + '(.|\n)*', 'g')
   };
 
-  // read file, return promise
   var read = function read(file) {
+
     return new Promise(function (resolve, reject) {
+
       _fs2['default'].readFile(file, 'utf-8', function (err, fileContent) {
         if (err) reject(err);
         resolve(fileContent);
@@ -80,13 +85,13 @@ exports['default'] = function () {
     },
 
     pluckSingle: function pluckSingle(str) {
+      if (!this.pluckable(str)) return new Error('Unpluckable input: ' + str);
+
       // Returns the first pluckable snippet
       return str.substring(snippetStart(str), snippetEnd(str)).trim();
     },
 
     pluck: function pluck(str, limit) {
-      if (!this.pluckable(str)) return new Error('unpluckable input');
-
       var snippets = [];
 
       if (limit) {

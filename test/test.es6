@@ -46,7 +46,7 @@ test('pluck a string from a string', t => {
 
   let p = pluck();
   
-  t.throws(p.pluckSingle('***'), 'throws an error on unpluckable content');
+  t.throws(p.pluckSingle('***'), 'throws an error on unpluckable');
   t.equal(p.pluckSingle('/*** CONTENT ***/'), 'CONTENT', 'successfully plucks from string');
 
   t.end();

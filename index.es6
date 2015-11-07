@@ -1,4 +1,5 @@
 import fs from 'fs';
+import glob from 'glob';
 
 export default function({
 
@@ -24,12 +25,11 @@ export default function({
     keyValue: new RegExp('(.|\n)*' + esc(valueOpening) + '(.|\n)*', 'g')
   };
 
-  // read file, return promise
   const read = (file) => {
 
     return new Promise((resolve, reject) => {
       
-      fs.readFile(file, 'utf-8', (err, fileContent) => {  
+      fs.readFile(file, 'utf-8', (err, fileContent) => {
         if(err) reject(err);
         resolve(fileContent);
       });
@@ -50,6 +50,7 @@ export default function({
     });
   };
 
+
   // Module
   return {
 
@@ -59,13 +60,13 @@ export default function({
     },
 
     pluckSingle(str) {
+      if(!this.pluckable(str)) return new Error(`Unpluckable input: ${str}`);
+      
       // Returns the first pluckable snippet
       return str.substring(snippetStart(str), snippetEnd(str)).trim();
     },
 
     pluck(str, limit) {
-      if(!this.pluckable(str)) return new Error('unpluckable input'); 
-
       let snippets = [];
 
       if(limit) {
