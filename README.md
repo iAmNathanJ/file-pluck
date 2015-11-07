@@ -127,6 +127,8 @@ p.pluckFile('main.css')
 // [{name: 'base', desc: 'Used for everything.', example: '<div class="base"></div>'}, {name: 'another-class', desc: 'Not used for everything.', example: '<div class="another-class"></div>'}]
 ```
 
+---
+
 File Pluck does not support file globs (for now). If you'd like to use globs see [Glob](https://www.npmjs.com/package/glob "a little globber") and/or use the function provided below...
 
 ```node
