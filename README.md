@@ -127,6 +127,32 @@ p.pluckFile('main.css')
 // [{name: 'base', desc: 'Used for everything.', example: '<div class="base"></div>'}, {name: 'another-class', desc: 'Not used for everything.', example: '<div class="another-class"></div>'}]
 ```
 
+File Pluck does not support file globs (for now). If you'd like to use globs see [Glob](https://www.npmjs.com/package/glob "a little globber") and/or use the function provided below...
+
+```node
+import filePluck from 'file-pluck';
+import glob from 'glob';
+
+let getFiles = (filePattern, opts) => {
+  return new Promise((resolve, reject) => {
+    glob(filePattern, opts, (err, filesArray) => {
+      if(err) reject(err);
+      resolve(filesArray);
+    });
+  });
+};
+
+// glob it
+
+let p = filePluck();
+
+getFiles('*.html')
+.then( files => p.pluckFiles(files) )
+.then( snippets => p.writeJSON('output.json', p.pairUp(snippets)) )
+.catch( err => console.error(err) );
+```
+
+
 ## API
 
 ### filePluck([options])
