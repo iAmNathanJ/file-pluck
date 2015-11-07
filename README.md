@@ -129,7 +129,7 @@ p.pluckFile('main.css')
 
 ---
 
-File Pluck does not support file globs (for now). If you'd like to use globs see [Glob](https://www.npmjs.com/package/glob "a little globber") and/or use the function provided below...
+File Pluck does not support file globs (for now). If you'd like to use globs see [glob](https://www.npmjs.com/package/glob "a little globber") and/or use the function provided below...
 
 ```node
 import filePluck from 'file-pluck';
