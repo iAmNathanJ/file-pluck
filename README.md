@@ -1,7 +1,6 @@
 # File Pluck
 
 [![Build Status](https://travis-ci.org/iAmNathanJ/file-pluck.svg?branch=master)](https://travis-ci.org/iAmNathanJ/file-pluck) [![Code Climate](https://codeclimate.com/github/iAmNathanJ/file-pluck/badges/gpa.svg)](https://codeclimate.com/github/iAmNathanJ/file-pluck)  
-***Expect this API to change frequently until v1.0***
 
 - Pluck snippets from files (or any plain string)
 - Return snippets in the form of strings or...
