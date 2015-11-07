@@ -8,10 +8,6 @@
 - Break snippets into key/value pairs
 - Optionally, output a file in JSON format
 
-### TODO
-- [ ] Heavier search functions testing
-- [ ] More Usage examples
-
 ## Install
 `npm i file-pluck`
 
