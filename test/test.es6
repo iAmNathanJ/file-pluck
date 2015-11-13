@@ -96,11 +96,11 @@ test('pluck snippets from file', t => {
 
   let p = pluck();
 
-  p.pluckFile(__dirname + '/test-stylesheet.css')
+  p.pluckSingleFile(__dirname + '/test-stylesheet.css')
   .then( data => t.looseEqual(data, [`name { Base Style }\n\nhtml { <element class="base"></element> }`, `name { Another Style }\n\nhtml { <element class="another"></element> }`], 'successfully returns an array of snippets') )
   .catch( err => t.fail(err) )
 
-  p.pluckFile(__dirname + '/test-stylesheet.css', 1)
+  p.pluckSingleFile(__dirname + '/test-stylesheet.css', 1)
   .then( data => t.looseEqual(data, [`name { Base Style }\n\nhtml { <element class="base"></element> }`], 'limit returned snippets') )
   .catch( err => t.fail(err) )
 
@@ -117,7 +117,7 @@ test('pluck all snippets from file with custom delimiters', t => {
     closing: `===\n*/`
   });
 
-  p.pluckFile(__dirname + '/test-stylesheet2.css')
+  p.pluckSingleFile(__dirname + '/test-stylesheet2.css')
   .then( data => t.looseEqual(data, [`name { Base Style }\n\nhtml { <element class="base"></element> }`, `name { Another Style }\n\nhtml { <element class="another"></element> }`], 'custom delimiters ok') )
   .catch( err => t.fail(err) )
 
@@ -192,7 +192,7 @@ test('read and pluck array of files', t => {
       `${__dirname}/test-stylesheet3.css`
     ];
 
-  p.pluckFiles(files)
+  p.pluckFile(files)
   .then( data => t.looseEqual(data, [`name { Base Style }\n\nhtml { <element class="base"></element> }`, `name { Another Style }\n\nhtml { <element class="another"></element> }`, `name { SS3 Base Style }\n\nhtml { <element class="base"></element> }`, `name { SS3 Another Style }\n\nhtml { <element class="another"></element> }`], 'successfully returns an array of snippets') )
   .catch( err => t.fail(err) );
 

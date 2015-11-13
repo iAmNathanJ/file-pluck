@@ -25,6 +25,17 @@ export default function({
     keyValue: new RegExp('(.|\n)*' + esc(valueOpening) + '(.|\n)*', 'g')
   };
 
+  const globFiles = (filePattern) => {
+    
+    return new Promise((resolve, reject) => {
+    
+      glob(filePattern, {}, (err, filesArray) => {
+        if(err) reject(err);
+        resolve(filesArray);
+      });
+    });
+  };
+
   const read = (file) => {
 
     return new Promise((resolve, reject) => {
@@ -83,15 +94,15 @@ export default function({
       return snippets;
     },
 
-    pluckFile(file, limit) {
+    pluckSingleFile(file, limit) {
       return read(file)
       .then(fileContent => this.pluck(fileContent, limit) );
     },
 
-    pluckFiles(files) {
+    pluckFile(files) {
       
       // Map files to an array of promises - read() returns a promise
-      let allFiles = files.map( file => this.pluckFile(file) );
+      let allFiles = files.map( file => this.pluckSingleFile(file) );
       
       // return promise
       return Promise.all(allFiles)
