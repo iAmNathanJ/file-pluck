@@ -144,7 +144,7 @@ let getFiles = (filePattern, opts) => {
 let p = filePluck();
 
 getFiles('*.html')
-.then( files => p.pluckFiles(files) )
+.then( files => p.pluckFile(files) )
 .then( snippets => p.writeJSON('output.json', p.pairUp(snippets)) )
 .catch( err => console.error(err) );
 ```
@@ -176,11 +176,8 @@ Returns true if the input string contains opening and closing delimiters.
 **filePluck.pluck(string, [limit])** `array`  
 Returns an array of strings plucked from input string. Optionally, accepts a limit argument to limit the number of items in the returned array.
 
-**filePluck.pluckFile(file, [limit])** `promise.then(array => {})`  
-Returns a promise that resolves to an array of strings. Optionally, accepts a limit argument to limit the number of items in the returned array.
-
-**filePluck.pluckFiles(array)** `promise.then(array => {})`  
-Note the plural, pluckFile**s**. This accepts and array of files and returns a promise that resolves to an array of strings.
+**filePluck.pluckFile(file)** `promise.then(array => {})`  
+Returns a promise that resolves to an array of strings.
 
 **filePluck.pairUp(array)** `array`  
 Maps an input array to an array of JS objects, key value pairs. 
