@@ -74,9 +74,7 @@ getSnippets.then(snippets => {
 
 ---
 
-If you want to break down snippets into key/value pairs, you can do so. This requires delimiters set on key/values. By default, they are:  
-`valueOpening: '{'`  
-`valueClosing: '}'`
+If you want to break down snippets into key/value pairs, you can do so. This requires delimiters set on key/values. By default, they are `valueOpening: '{'` and `valueClosing: '}'`.
 
 *main.css*
 ```css
@@ -149,7 +147,7 @@ Returns true if the input string contains opening and closing delimiters.
 Returns an array of strings plucked from input string. Optionally, accepts a limit argument to limit the number of items in the returned array.
 
 **filePluck.pluckFile(file)** `promise.then(array => {})`  
-Returns a promise that resolves to an array of strings. `file` can be a string value or an array of string values. Globs work, so feel free to mix and match as necessary, e.g. `pluckFile(['*.html', 'main.css'])`
+Returns a promise that resolves to an array of strings. `file` can be a string value or an array of string values. Globs work, so feel free to mix and match as necessary, e.g. `pluckFile(['*.html', 'main.css'])`g
 
 **filePluck.pairUp(array)** `array`  
 Maps an input array to an array of JS objects, key value pairs. 
