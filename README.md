@@ -11,7 +11,7 @@
 `npm i file-pluck`
 
 ## Usage
-The `pluckFile` function returns a promise that will resolve to an array of "snippets" found within the target file(s). Use it like so...  
+The `pluckFile` function returns a promise that will resolve to an array of "snippets" found within the target file(s). It accepts one argument--a single file as a string, or an array of files. Globs work too. Use it like so...  
 
 *text.txt*
 ```
@@ -40,9 +40,9 @@ getSnippets.then(snippets => {
 // ['pluck this text', 'pluck this text too']
 ```
 
+---
 
 By default, opening and closing delimiters are set as `/***` and `***/`. You can change that to suit your needs.  
----
 
 *index.html*
 ```html
@@ -72,11 +72,11 @@ getSnippets.then(snippets => {
 // ['<img src="img1" />', '<img src="img2" />']
 ```
 
+---
 
 If you want to break down snippets into key/value pairs, you can do so. This requires delimiters set on key/values. By default, they are:  
 `valueOpening: '{'`  
 `valueClosing: '}'`
-___
 
 *main.css*
 ```css
@@ -149,7 +149,7 @@ Returns true if the input string contains opening and closing delimiters.
 Returns an array of strings plucked from input string. Optionally, accepts a limit argument to limit the number of items in the returned array.
 
 **filePluck.pluckFile(file)** `promise.then(array => {})`  
-Returns a promise that resolves to an array of strings.
+Returns a promise that resolves to an array of strings. `file` can be a string value or an array of string values. Globs work, so feel free to mix and match as necessary, e.g. `pluckFile(['*.html', 'main.css'])`
 
 **filePluck.pairUp(array)** `array`  
 Maps an input array to an array of JS objects, key value pairs. 
