@@ -152,8 +152,8 @@ test('pair up single key/value from snippet', t => {
 
   let p = pluck();
 
-  t.throws(p.pairUpSingle('KEYVALUE'), 'Throws an error when no key/value pair can be found');
-  t.looseEqual(p.pairUpSingle('KEY { VALUE }'), { KEY: 'VALUE' }, 'successfully splits snippet into keys/values');
+  t.throws(p.pairUp('KEYVALUE'), 'Throws an error when no key/value pair can be found');
+  t.looseEqual(p.pairUp('KEY { VALUE }'), { KEY: 'VALUE' }, 'successfully splits snippet into keys/values');
 
   t.end();
 });
@@ -172,7 +172,7 @@ test('return array of objects from all snippets', t => {
       { key1: 'VALUE1', key2: 'VALUE2' },
       { key1: 'VALUE1', key2: 'VALUE2' }];
 
-  t.looseEqual(p.pairUp(testArr), shouldBeEqual, 'returns an array of all snippets as key/val objects');
+  t.looseEqual(p.objectify(testArr), shouldBeEqual, 'returns an array of all snippets as key/val objects');
 
   t.end();
 });
@@ -225,7 +225,7 @@ test('write JSON file', t => {
       { key1: 'VALUE1', key2: 'VALUE2' },
       { key1: 'VALUE1', key2: 'VALUE2' }];
 
-  let compiled = p.pairUp(testArr);
+  let compiled = p.objectify(testArr);
 
   p.writeJSON('test/output.json', compiled)
   .then( data => t.pass('Successfully writes json file') )

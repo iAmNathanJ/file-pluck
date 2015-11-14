@@ -155,7 +155,7 @@ exports['default'] = function () {
       return str.match(pattern.keyValue);
     },
 
-    pairUpSingle: function pairUpSingle(str) {
+    pairUp: function pairUp(str) {
       var _this3 = this;
 
       var pair = undefined;
@@ -174,11 +174,11 @@ exports['default'] = function () {
       }, {});
     },
 
-    pairUp: function pairUp(snippets) {
+    objectify: function objectify(snippets) {
       var _this4 = this;
 
       return snippets.map(function (snippet) {
-        return _this4.pairUpSingle(snippet);
+        return _this4.pairUp(snippet);
       });
     },
 

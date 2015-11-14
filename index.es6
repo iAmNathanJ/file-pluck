@@ -127,7 +127,7 @@ export default function({
       return str.match(pattern.keyValue);
     },
 
-    pairUpSingle(str) {
+    pairUp(str) {
       
       let pair;
 
@@ -146,8 +146,8 @@ export default function({
       }, {});
     },
 
-    pairUp(snippets) {
-      return snippets.map(snippet => this.pairUpSingle(snippet) );
+    objectify(snippets) {
+      return snippets.map(snippet => this.pairUp(snippet) );
     },
 
     read: read,
