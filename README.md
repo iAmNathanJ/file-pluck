@@ -11,7 +11,7 @@
 `npm i file-pluck`
 
 ## Usage
-The `pluckFile` function returns a promise that will resolve to an array of "snippets" found within the target file. Use it like so...  
+The `pluckFile` function returns a promise that will resolve to an array of "snippets" found within the target file(s). Use it like so...  
 
 *text.txt*
 ```
@@ -40,9 +40,9 @@ getSnippets.then(snippets => {
 // ['pluck this text', 'pluck this text too']
 ```
 
----
 
 By default, opening and closing delimiters are set as `/***` and `***/`. You can change that to suit your needs.  
+---
 
 *index.html*
 ```html
@@ -72,11 +72,11 @@ getSnippets.then(snippets => {
 // ['<img src="img1" />', '<img src="img2" />']
 ```
 
----
 
 If you want to break down snippets into key/value pairs, you can do so. This requires delimiters set on key/values. By default, they are:  
 `valueOpening: '{'`  
 `valueClosing: '}'`
+___
 
 *main.css*
 ```css
@@ -121,34 +121,6 @@ p.pluckFile('main.css')
 
 // [{name: 'base', desc: 'Used for everything.', example: '<div class="base"></div>'}, {name: 'another-class', desc: 'Not used for everything.', example: '<div class="another-class"></div>'}]
 ```
-
----
-
-File Pluck does not support file globs (for now). If you'd like to use globs see [glob](https://www.npmjs.com/package/glob "a little globber") and/or use the function provided below...
-
-```node
-import filePluck from 'file-pluck';
-import glob from 'glob';
-
-let getFiles = (filePattern, opts) => {
-  return new Promise((resolve, reject) => {
-    glob(filePattern, opts, (err, filesArray) => {
-      if(err) reject(err);
-      resolve(filesArray);
-    });
-  });
-};
-
-// glob it
-
-let p = filePluck();
-
-getFiles('*.html')
-.then( files => p.pluckFile(files) )
-.then( snippets => p.writeJSON('output.json', p.pairUp(snippets)) )
-.catch( err => console.error(err) );
-```
-
 
 ## API
 
