@@ -25,17 +25,7 @@ export default function({
     keyValue: new RegExp('(.|\n)*' + esc(valueOpening) + '(.|\n)*', 'g')
   };
 
-  const globFiles = (filePattern) => {
-    
-    return new Promise((resolve, reject) => {
-    
-      glob(filePattern, {}, (err, filesArray) => {
-        if(err) reject(err);
-        resolve(filesArray);
-      });
-    });
-  };
-
+  // Utility Functions (read/write)
   const read = (file) => {
 
     return new Promise((resolve, reject) => {
@@ -101,8 +91,24 @@ export default function({
 
     pluckFile(files) {
       
-      // Map files to an array of promises - read() returns a promise
-      let allFiles = files.map( file => this.pluckSingleFile(file) );
+      // Make sure files exist
+      if(!files) return new Error('pluckFile - first argument should be a file or an array of files');
+
+      let allFiles;
+
+      // Check if files is array. If not, force it.
+      if(!Array.isArray(files)) files = [files];
+      
+      // Reduce files to flat array
+      // This will handle globs and allow mapping
+      // Otherwise, with globs, we would have 2D array
+      allFiles = files.reduce( (prev, cur) => {
+        return prev.concat( glob.sync(cur, {}) );
+      }, [])
+
+      // Map files to an array of promises
+      .map( file => this.pluckSingleFile(file) );
+      
       
       // return promise
       return Promise.all(allFiles)

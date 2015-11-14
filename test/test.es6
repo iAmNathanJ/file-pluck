@@ -177,23 +177,32 @@ test('return array of objects from all snippets', t => {
   t.end();
 });
 
+test('read and pluck files', t => {
 
-
-test('read and pluck array of files', t => {
+  t.plan(3);
   
-  // ADD throw error if input file does not exist
+  let p = pluck();
 
-  t.plan(1);
-  
-  let p = pluck()
-    
-    , files = [
-      `${__dirname}/test-stylesheet.css`,
-      `${__dirname}/test-stylesheet3.css`
-    ];
+  p.pluckFile(`${__dirname}/test-stylesheet.css`)
+  .then( data => t.looseEqual(data, [`name { Base Style }\n\nhtml { <element class="base"></element> }`, `name { Another Style }\n\nhtml { <element class="another"></element> }`], 'successfully plucks snippets from a single file') )
+  .catch( err => t.fail(err) );
+
+  let files = [
+    `${__dirname}/test-stylesheet.css`,
+    `${__dirname}/test-stylesheet3.css`
+  ];
 
   p.pluckFile(files)
-  .then( data => t.looseEqual(data, [`name { Base Style }\n\nhtml { <element class="base"></element> }`, `name { Another Style }\n\nhtml { <element class="another"></element> }`, `name { SS3 Base Style }\n\nhtml { <element class="base"></element> }`, `name { SS3 Another Style }\n\nhtml { <element class="another"></element> }`], 'successfully returns an array of snippets') )
+  .then( data => t.looseEqual(data, [`name { Base Style }\n\nhtml { <element class="base"></element> }`, `name { Another Style }\n\nhtml { <element class="another"></element> }`, `name { SS3 Base Style }\n\nhtml { <element class="base"></element> }`, `name { SS3 Another Style }\n\nhtml { <element class="another"></element> }`], 'successfully plucks snippets from an array of files') )
+  .catch( err => t.fail(err) );
+
+  let filesWithGlob = [
+    `${__dirname}/*.html`,
+    `${__dirname}/test-stylesheet3.css`
+  ];
+
+  p.pluckFile(filesWithGlob)
+  .then( data => t.looseEqual(data, [ 'stuff', 'more stuff', 'name { SS3 Base Style }\n\nhtml { <element class="base"></element> }', 'name { SS3 Another Style }\n\nhtml { <element class="another"></element> }' ], 'successfully plucks snippets from an array of files with globs') )
   .catch( err => t.fail(err) );
 
 });
