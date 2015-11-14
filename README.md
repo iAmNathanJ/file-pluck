@@ -150,7 +150,7 @@ Returns an array of strings plucked from input string. Optionally, accepts a lim
 Returns a promise that resolves to an array of strings. `file` can be a string value or an array of string values. Globs work, so feel free to mix and match as necessary, e.g. `pluckFile(['*.html', 'main.css'])`
 
 **filePluck.pairUp(array)** `array`  
-Maps an input array to an array of JS objects, key value pairs. 
+Maps an input array to an array of JS objects (key/value pairs). 
 
 **filePluck.writeJSON(file, object)** `promise.then(object => {})`  
 Writes a javascript object to a json file, returns a promise that resolves to the input object. 
