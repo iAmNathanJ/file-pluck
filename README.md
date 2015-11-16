@@ -114,7 +114,7 @@ let p = filePluck();
 
 p.pluckFile('main.css')
 .then(snippets => {
-  console.log( p.pairUp(snippets) );
+  console.log( p.objectify(snippets) );
 });
 
 // [{name: 'base', desc: 'Used for everything.', example: '<div class="base"></div>'}, {name: 'another-class', desc: 'Not used for everything.', example: '<div class="another-class"></div>'}]
