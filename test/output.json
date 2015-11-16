@@ -1,1 +1,10 @@
-[{"key1":"VALUE1","key2":"VALUE2"},{"key1":"VALUE1","key2":"VALUE2"}]
+[
+  {
+    "key1": "VALUE1",
+    "key2": "VALUE2"
+  },
+  {
+    "key1": "VALUE1",
+    "key2": "VALUE2"
+  }
+]

@@ -44,7 +44,7 @@ export default function({
       
       if(!Object.is(obj)) resolve(new Error('writeJSON requires the second argument to be an object'));
       
-      fs.writeFile(filename, JSON.stringify(obj), err => {
+      fs.writeFile(filename, JSON.stringify(obj, null, 2) + '\n', err => {
         if(err) reject(err);
         resolve(obj);
       });

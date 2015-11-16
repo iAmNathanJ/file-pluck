@@ -70,7 +70,7 @@ exports['default'] = function () {
 
       if (!Object.is(obj)) resolve(new Error('writeJSON requires the second argument to be an object'));
 
-      _fs2['default'].writeFile(filename, JSON.stringify(obj), function (err) {
+      _fs2['default'].writeFile(filename, JSON.stringify(obj, null, 2) + '\n', function (err) {
         if (err) reject(err);
         resolve(obj);
       });
