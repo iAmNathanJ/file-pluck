@@ -62,17 +62,17 @@ test('set a limit on plucks', t => {
   t.end();
 });
 
-test('read a string from a file', t => {
+// test('read a string from a file', t => {
 
-  t.plan(1);
+//   t.plan(1);
 
-  let p = pluck();
+//   let p = pluck();
   
-  p.read(__dirname + '/test-string.css')
-  .then( str => t.equal(str, 'test-string', 'successfully reads file') )
-  .catch( err => t.fail(err) );
+//   p.read(__dirname + '/test-string.css')
+//   .then( str => t.equal(str, 'test-string', 'successfully reads file') )
+//   .catch( err => t.fail(err) );
 
-});
+// });
 
 
 

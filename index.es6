@@ -150,7 +150,6 @@ export default function({
       return snippets.map(snippet => this.pairUp(snippet) );
     },
 
-    read: read,
     writeJSON: writeJSON
   };
 

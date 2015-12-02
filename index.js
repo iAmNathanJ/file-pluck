@@ -182,7 +182,6 @@ exports['default'] = function () {
       });
     },
 
-    read: read,
     writeJSON: writeJSON
   };
 };
