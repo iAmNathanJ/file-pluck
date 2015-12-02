@@ -1,6 +1,6 @@
 {
   "name": "file-pluck",
-  "version": "0.6.3",
+  "version": "0.6.4",
   "description": "Pluck snippets from files (or strings). Return strings or key/value pairs.",
   "keywords": [
     "read",
