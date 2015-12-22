@@ -7,11 +7,14 @@
 - Break snippets into key/value pairs
 - Optionally, output a file in JSON format
 
+File Pluck exposes an ES2015 [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) API. Use it with your transpiler of choice, such as [Babel](https://babeljs.io/), or any environment that supports native JavaScript promises.  
+***Note: Node.js v4.2.3 supports native promises out of the box. No need for a transpiler.***
+
 ## Install
 `npm i file-pluck`
 
 ## Usage
-The `pluckFile` function returns a promise that will resolve to an array of "snippets" found within the target file(s). It accepts one argument--a single file as a string, or an array of files. Globs work too. Use it like so...  
+The `pluckFile` function returns a promise that will resolve to an array of "snippets" found within the target file(s). It accepts one argument&mdash;a single file as a string, or an array of files. Globs work too. Use it like so...  
 
 *text.txt*
 ```
@@ -27,7 +30,9 @@ blah...
 ```
 
 ```node
-import filePluck from 'file-pluck';
+'use strict';
+
+let filePluck = require('file-pluck');
 
 let p = filePluck();
 
@@ -108,7 +113,9 @@ example { <div class="another-class"></div> }
 ```
 
 ```node
-import filePluck from 'file-pluck';
+'use strict';
+
+let filePluck = require('file-pluck');
 
 let p = filePluck();
 
