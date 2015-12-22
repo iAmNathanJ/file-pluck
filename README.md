@@ -29,7 +29,7 @@ blah blah blah...
 blah...
 ```
 
-By default, opening and closing delimiters are set as `/***` and `***/`. You can pluck the snippets from the *example.txt* like so...
+By default, opening and closing delimiters are set as `/***` and `***/`. You can pluck the snippets from *example.txt* like so...
 ```node
 'use strict';
 
@@ -48,8 +48,7 @@ getSnippets.then(snippets => {
 
 ---
 
-Use custom delimiters...
-*index.html*
+Use custom delimiters on the following, *index.html*...
 ```html
 <div>
 
@@ -79,7 +78,7 @@ getSnippets.then(snippets => {
 
 ---
 
-If you want to break down snippets into key/value pairs, you can do so. This requires delimiters on key/values. By default, they are `{` and `}`. Assume the following file, *main.css*.
+If you want to break down snippets into key/value pairs, you can do so. This requires delimiters on key/values. By default, they are `{` and `}`. Take the following file, *main.css*...
 ```css
 
 /***
@@ -110,7 +109,7 @@ example { <div class="another-class"></div> }
 
 ```
 
-Create key/value pairs like so...
+You can create key/value pairs like so...
 ```node
 'use strict';
 
@@ -124,6 +123,36 @@ p.pluckFile('main.css')
 });
 
 // [{name: 'base', desc: 'Used for everything.', example: '<div class="base"></div>'}, {name: 'another-class', desc: 'Not used for everything.', example: '<div class="another-class"></div>'}]
+```
+
+Or write that data to file in JSON...
+```node
+'use strict';
+
+let filePluck = require('file-pluck');
+
+let p = filePluck();
+
+p.pluckFile('main.css')
+.then(snippets => {
+  p.writeJSON('output.json', p.objectify(snippets) );
+});
+```
+
+Which would yeild the file *output.json*...
+```json
+[
+  {
+    "name": "base",
+    "desc": "Used for everything.",
+    "example": "<div class="base"></div>"
+  },
+  {
+    "name": "another-class"
+    " desc": "Not used for everything.",
+    "example": "<div class="another-class"></div>"
+  }
+]
 ```
 
 ## API
