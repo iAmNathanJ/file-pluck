@@ -145,12 +145,12 @@ Which would yeild the file *output.json*...
   {
     "name": "base",
     "desc": "Used for everything.",
-    "example": "<div class="base"></div>"
+    "example": "<div class=\"base\"></div>"
   },
   {
-    "name": "another-class"
+    "name": "another-class",
     " desc": "Not used for everything.",
-    "example": "<div class="another-class"></div>"
+    "example": "<div class=\"another-class\"></div>"
   }
 ]
 ```
