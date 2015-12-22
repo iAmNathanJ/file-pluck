@@ -36,7 +36,7 @@ let filePluck = require('file-pluck');
 
 let p = filePluck();
 
-let getSnippets = p.pluckFile('test.txt')
+let getSnippets = p.pluckFile('text.txt')
 
 getSnippets.then(snippets => {
   console.log(snippets);
