@@ -16,7 +16,7 @@ File Pluck exposes an ES2015 [promise](https://developer.mozilla.org/en-US/docs/
 ## Usage
 The `pluckFile` function returns a promise that will resolve to an array of "snippets" found within the target file(s). It accepts one argument&mdash;a single file as a string, or an array of files. Globs work too. Use it like so...  
 
-*text.txt*
+Assuming a file called *example.txt* contained the following...
 ```
 ...blah blah blah
 
@@ -29,6 +29,7 @@ blah blah blah...
 blah...
 ```
 
+By default, opening and closing delimiters are set as `/***` and `***/`. You can pluck the snippets from the *example.txt* like so...
 ```node
 'use strict';
 
@@ -36,7 +37,7 @@ let filePluck = require('file-pluck');
 
 let p = filePluck();
 
-let getSnippets = p.pluckFile('text.txt')
+let getSnippets = p.pluckFile('example.txt')
 
 getSnippets.then(snippets => {
   console.log(snippets);
@@ -47,8 +48,7 @@ getSnippets.then(snippets => {
 
 ---
 
-By default, opening and closing delimiters are set as `/***` and `***/`. You can change that to suit your needs.  
-
+Use custom delimiters...
 *index.html*
 ```html
 <div>
@@ -79,9 +79,7 @@ getSnippets.then(snippets => {
 
 ---
 
-If you want to break down snippets into key/value pairs, you can do so. This requires delimiters set on key/values. By default, they are `{` and `}`.
-
-*main.css*
+If you want to break down snippets into key/value pairs, you can do so. This requires delimiters on key/values. By default, they are `{` and `}`. Assume the following file, *main.css*.
 ```css
 
 /***
@@ -112,6 +110,7 @@ example { <div class="another-class"></div> }
 
 ```
 
+Create key/value pairs like so...
 ```node
 'use strict';
 
