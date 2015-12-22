@@ -8,7 +8,7 @@
 - Optionally, output a file in JSON format
 
 File Pluck exposes an ES2015 [promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) API. Use it with your transpiler of choice, such as [Babel](https://babeljs.io/), or any environment that supports native JavaScript promises.  
-***Note: Node.js v4.2.3 supports native promises out of the box. No need for a transpiler.***
+***Note: Node.js v4.2.3 supports promises out of the box. No need for a transpiler.***
 
 ## Install
 `npm i file-pluck`
