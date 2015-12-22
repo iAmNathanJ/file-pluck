@@ -125,7 +125,7 @@ p.pluckFile('main.css')
 // [{name: 'base', desc: 'Used for everything.', example: '<div class="base"></div>'}, {name: 'another-class', desc: 'Not used for everything.', example: '<div class="another-class"></div>'}]
 ```
 
-Or write that data to file in JSON...
+Or write that data to a JSON file...
 ```node
 'use strict';
 
