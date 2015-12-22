@@ -135,7 +135,7 @@ let p = filePluck();
 
 p.pluckFile('main.css')
 .then(snippets => {
-  p.writeJSON('output.json', p.objectify(snippets) );
+  p.writeJSON( 'output.json', p.objectify(snippets) );
 });
 ```
 
