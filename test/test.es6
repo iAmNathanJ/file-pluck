@@ -45,7 +45,7 @@ test('pluckSingle should be a function', t => {
 test('pluck a string from a string', t => {
 
   let p = pluck();
-  
+
   t.throws(p.pluckSingle('***'), 'throws an error on unpluckable');
   t.equal(p.pluckSingle('/*** CONTENT ***/'), 'CONTENT', 'successfully plucks from string');
 
@@ -67,7 +67,7 @@ test('set a limit on plucks', t => {
 //   t.plan(1);
 
 //   let p = pluck();
-  
+
 //   p.read(__dirname + '/test-string.css')
 //   .then( str => t.equal(str, 'test-string', 'successfully reads file') )
 //   .catch( err => t.fail(err) );
@@ -134,7 +134,7 @@ test('check snippet for key value pairs', t => {
 
   // TODO
   // Add Regex to delimiter testing
-  
+
   let p2 = pluck({
     valueOpening: ':',
     valueClosing: '.'
@@ -163,11 +163,11 @@ test('pair up single key/value from snippet', t => {
 test('return array of objects from all snippets', t => {
 
   let p = pluck()
-    
+
     , testArr = [
       'key1 { VALUE1 } key2 { VALUE2 }',
       'key1 { VALUE1 } key2 { VALUE2 }']
-    
+
     , shouldBeEqual = [
       { key1: 'VALUE1', key2: 'VALUE2' },
       { key1: 'VALUE1', key2: 'VALUE2' }];
@@ -180,7 +180,7 @@ test('return array of objects from all snippets', t => {
 test('read and pluck files', t => {
 
   t.plan(3);
-  
+
   let p = pluck();
 
   p.pluckFile(`${__dirname}/test-stylesheet.css`)
@@ -214,13 +214,13 @@ test('write JSON file', t => {
   t.plan(2);
 
   let p = pluck();
-    
-  t.throws(p.writeJSON('not an object'), 'throws an error if arg 2 is not an object');
+
+  t.throws(p.writeJSON('test/not an object'), 'throws an error if arg 2 is not an object');
 
   let testArr = [
       'key1 { VALUE1 } key2 { VALUE2 }',
       'key1 { VALUE1 } key2 { VALUE2 }']
-    
+
     , shouldBeEqual = [
       { key1: 'VALUE1', key2: 'VALUE2' },
       { key1: 'VALUE1', key2: 'VALUE2' }];
