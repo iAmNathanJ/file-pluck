@@ -1,8 +1,6 @@
 import test from 'tape';
 import pluck from '../';
 
-
-
 test('check for pluckable content', t => {
 
   let p = pluck();
