@@ -1,7 +1,7 @@
 import fs from 'fs';
 import glob from 'glob';
 
-export default function({
+export default function FilePluck({
 
   // delimiters
   opening = '/***',

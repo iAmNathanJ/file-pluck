@@ -3,6 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true
 });
+exports['default'] = FilePluck;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
@@ -14,7 +15,7 @@ var _glob = require('glob');
 
 var _glob2 = _interopRequireDefault(_glob);
 
-exports['default'] = function () {
+function FilePluck() {
   var _ref = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
 
   var _ref$opening = _ref.opening;
@@ -184,6 +185,6 @@ exports['default'] = function () {
 
     writeJSON: writeJSON
   };
-};
+}
 
 module.exports = exports['default'];
