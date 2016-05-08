@@ -2,3 +2,6 @@ language: node_js
 node_js:
   - '4.2'
 script: npm run ci
+addons:
+  code_climate:
+    repo_token: ce27761b0b3f6c4fc2a44c76bfeeea6286adc807364c8f55e735aa18f5894692
