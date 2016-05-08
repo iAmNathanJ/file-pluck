@@ -3,5 +3,5 @@ engines:
     enabled: true
 ratings:
    paths:
-   - "*.es6"
+   - "*.es6"cd 
    - "**.es6"
